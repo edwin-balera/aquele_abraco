@@ -1,5 +1,6 @@
-const CACHE_NAME = 'aquele-abraco-v10.1.0';
+const CACHE_NAME = 'aquele-abraco-v10.2.0';
 
+// A lista de arquivos que o celular PRECISA baixar para funcionar offline
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -12,7 +13,10 @@ const STATIC_ASSETS = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('[Service Worker] Salvando arquivos no Cache...');
+      return cache.addAll(STATIC_ASSETS);
+    })
   );
   self.skipWaiting();
 });
@@ -22,8 +26,11 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keys) =>
       Promise.all(
         keys.map((key) => {
-          // Se achar um cache com nome antigo, deleta sem dó
-          if (key !== CACHE_NAME) return caches.delete(key);
+          // Se o nome do cache antigo for diferente do novo, DELETA TUDO!
+          if (key !== CACHE_NAME) {
+            console.log('[Service Worker] Deletando cache antigo:', key);
+            return caches.delete(key);
+          }
         })
       )
     )
@@ -31,23 +38,20 @@ self.addEventListener('activate', (event) => {
   self.clients.claim();
 });
 
-// CÉREBRO DO CACHE DINÂMICO (Salva a IA e o modelo offline)
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      // 1. Se já tem salvo no celular, responde na mesma hora (Fricção Zero)
+      // 1. Se achou no celular (cache), entrega na mesma hora
       if (cachedResponse) return cachedResponse;
 
-      // 2. Se não tem, busca na internet
+      // 2. Se não achou, vai buscar na internet
       return fetch(event.request).then((networkResponse) => {
-        // Valida se a resposta da internet é boa pra não salvar erro no cache
         if (!networkResponse || networkResponse.status !== 200 || (networkResponse.type !== 'basic' && networkResponse.type !== 'cors')) {
           return networkResponse;
         }
 
-        // 3. Faz um clone do arquivo baixado e guarda no bolso pro futuro
         const responseToCache = networkResponse.clone();
         caches.open(CACHE_NAME).then((cache) => {
           cache.put(event.request, responseToCache);
@@ -55,7 +59,7 @@ self.addEventListener('fetch', (event) => {
 
         return networkResponse;
       }).catch(() => {
-        // 4. Se a internet cair e não tiver cache, força a abertura do index
+        // 3. Se a internet cair, força a abrir o index
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
@@ -64,7 +68,6 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// Listener de atualização silenciosa (Aquele aviso que aparece na tela do app)
 self.addEventListener('message', (event) => {
   if (event.data && event.data.action === 'skipWaiting') {
     self.skipWaiting();
