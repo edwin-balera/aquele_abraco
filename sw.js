@@ -1,8 +1,10 @@
-const CACHE_NAME = 'aquele-abraco-v6.1.0';
+const CACHE_NAME = 'aquele-abraco-v10.1.0';
 
 const STATIC_ASSETS = [
   './',
   './index.html',
+  './style.css',
+  './app.js',
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
