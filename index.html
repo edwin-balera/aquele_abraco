@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Aquele Abraço 5.2 (Audio Fix Edition)</title>
+  <title>Aquele Abraço 5.4 (Emotion Sliders Edition)</title>
 
   <!-- PWA META TAGS -->
   <link rel="manifest" href="manifest.json">
@@ -32,7 +32,7 @@
     
     #brightness-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; background-color: black; opacity: var(--screen-brightness, 0); pointer-events: none; z-index: 999; }
 
-    /* CABEÇALHO LIMPO */
+    /* CABEÇALHO */
     header { padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 10; height: 70px; }
     .brand-container { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 4px; border-radius: 8px; transition: background-color 0.3s; }
     .brand-container:active { background-color: rgba(0,0,0,0.05); }
@@ -72,14 +72,27 @@
     .paragraph-item { margin: 0; padding: 6px 8px; border-radius: 8px; position: relative; cursor: pointer; transition: background-color 0.2s ease, border-color 0.2s ease; border: 1px solid transparent; display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
     .paragraph-item.speaking { background-color: rgba(108, 92, 231, 0.12); border-color: #6c5ce7; }
     .paragraph-text { flex: 1; word-break: break-word; min-width: 60%; }
-    .access-btns { display: flex; gap: 4px; align-items: center; margin-left: auto; flex-shrink: 0; margin-top: 2px; }
-    .access-btn { background: none; border: none; font-size: 1.1rem; cursor: pointer; opacity: 0.75; transition: opacity 0.2s; padding: 2px 4px; }
     
+    .access-btns { display: flex; gap: 4px; align-items: center; margin-left: auto; flex-shrink: 0; margin-top: 2px; }
+    .access-btn { background: none; border: none; font-size: 1.1rem; cursor: pointer; opacity: 0.75; transition: opacity 0.2s; padding: 2px 4px; display:inline-block; }
+    .access-btn:hover { opacity: 1; }
+
     .glosa-box { background-color: rgba(108, 92, 231, 0.08); border-left: 3px solid #6c5ce7; padding: 8px 10px; margin-top: 6px; font-family: monospace; font-size: 0.85rem; color: var(--text-color); border-radius: 0 4px 4px 0; display: none; width: 100%; word-break: break-word; font-weight: bold; }
     .glosa-box.visible { display: block; }
 
     .cbt-inline-buttons { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; width: 100%; border-top: 1px dotted var(--border-color); padding-top: 8px; }
     .cbt-inline-btn { padding: 10px; border: 1px solid var(--primary-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color); font-weight: 600; cursor: pointer; text-align: left; transition: all 0.2s; display: flex; align-items: center; gap: 8px;}
+    .cbt-inline-btn:active { background: rgba(0,0,0,0.05); transform: scale(0.98); }
+
+    /* V5.4: TERMÔMETRO EMOCIONAL (SLIDERS NO CHAT) */
+    .emotion-sliders-card { background-color: rgba(0,0,0,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; margin-top: 8px; display: flex; flex-direction: column; gap: 12px; width: 100%; }
+    body.theme-dark .emotion-sliders-card { background-color: rgba(255,255,255,0.03); }
+    .emotion-slider-row { display: flex; flex-direction: column; gap: 4px; }
+    .emotion-label { font-size: 0.85rem; font-weight: 700; display: flex; justify-content: space-between; }
+    .emotion-val-display { color: #6c5ce7; font-weight: bold; }
+    .emotion-range { width: 100%; height: 6px; border-radius: 4px; outline: none; -webkit-appearance: none; background: var(--border-color); accent-color: #6c5ce7; }
+    .emotion-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #6c5ce7; cursor: pointer; }
+    .emotion-submit-btn { background-color: var(--primary-color); color: var(--bg-color); border: none; padding: 10px; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; margin-top: 4px; }
 
     /* CONTROLES */
     .input-area { background-color: var(--card-bg); padding: 10px 15px 15px; border-top: 1px solid var(--border-color); flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; z-index: 10; }
@@ -90,13 +103,14 @@
     .voice-active { background-color: #2ed573 !important; }
     #fileInput { display: none; }
 
+    /* EMOJI MODAL */
     #emoji-picker-modal { display: none; background: var(--card-bg); border-top: 1px solid var(--border-color); padding: 12px; max-height: 240px; overflow-y: auto; flex-direction: column; gap: 10px; flex-shrink: 0; }
     .emoji-category { display: flex; flex-direction: column; gap: 4px; }
     .emoji-category span { font-size: 0.75rem; color: #888; font-weight: 600; }
     .emoji-grid { display: flex; flex-wrap: wrap; gap: 8px; }
     .emoji-item { background: none; border: none; font-size: 1.35rem; cursor: pointer; }
 
-    /* MODAIS */
+    /* MODAIS NATINAIS */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; background-color: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
     .modal-card { background-color: var(--card-bg); width: 90%; max-width: 480px; max-height: 85dvh; border-radius: var(--border-radius); border: 1px solid var(--border-color); display: flex; flex-direction: column; box-shadow: 0 10px 25px rgba(0,0,0,0.15); overflow: hidden; }
@@ -127,11 +141,9 @@
     .panic-p { font-size: 0.9rem; line-height: 1.5; color: #5f6368; margin-bottom: 20px; }
     .panic-code { font-size: 0.75rem; color: #70757a; font-family: monospace; cursor: pointer; padding: 8px 0; display: inline-block; text-decoration: underline; }
 
-    /* TOAST DE NOTIFICAÇÃO */
     #toast-notification { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); background: var(--primary-color); color: var(--bg-color); padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; text-align: center; width: 90%; max-width: 350px; }
     #toast-notification.show { opacity: 1; }
   </style>
-
 </head>
 <body>
 
@@ -151,11 +163,15 @@
     </div>
   </header>
 
-  <!-- MODAL: ÁUDIO -->
+  <!-- MODAIS -->
   <div id="audio-modal" class="modal-overlay">
     <div class="modal-card" style="max-width: 340px;">
       <div class="modal-header">
-        <span class="modal-title">Frequências Terapêuticas</span>
+        <span class="modal-title" style="flex:1;">Frequências</span>
+        <div class="access-btns" style="margin-right: 12px;">
+          <span class="access-btn" onclick="readGenericText('Sons que ajudam a desacelerar a mente. Som de Chuva, Binaural 432Hz, Reset Cognitivo 852Hz, e Rádio Mindfulness.', this)">🔊</span>
+          <span class="access-btn" onclick="window.toggleGlosaText('SONS AJUDAR DESACELERAR MENTE. CHUVA, BINAURAL, RESET COGNITIVO, RÁDIO.', this.closest('.modal-card').querySelector('.modal-body'))">🤟</span>
+        </div>
         <button class="close-btn" onclick="closeModal('audio-modal')">&times;</button>
       </div>
       <div class="modal-body">
@@ -168,11 +184,8 @@
       </div>
     </div>
   </div>
-  
-  <!-- FIX ÁUDIO V5.2: Adicionado crossorigin para permitir rádio externa -->
   <audio id="ambientPlayer" loop crossorigin="anonymous" style="display:none;"></audio>
 
-  <!-- MODAL MASTER: MENU CENTRAL -->
   <div id="settings-modal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">
@@ -180,9 +193,12 @@
         <button class="close-btn" onclick="closeModal('settings-modal')">&times;</button>
       </div>
       <div class="modal-body" style="padding: 15px;">
-        
         <div class="accordion-item">
-          <button class="accordion-header" onclick="toggleAccordion(this)"><span>💡 Tela e Conforto Visual</span> <span class="accordion-icon">▼</span></button>
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span style="flex:1;">💡 Tela e Conforto Visual</span>
+            <div class="access-btns"><span class="access-btn" onclick="toggleAccordionAudio(event, this)">🔊</span><span class="access-btn" onclick="toggleAccordionLibras(event, this)">🤟</span></div>
+            <span class="accordion-icon">▼</span>
+          </div>
           <div class="accordion-content"><br>
             <div class="theme-options">
               <button class="theme-btn" style="width:31%" onclick="setTheme('light')">☀️ Claro</button>
@@ -195,7 +211,11 @@
         </div>
 
         <div class="accordion-item">
-          <button class="accordion-header" onclick="toggleAccordion(this); populateVoices();"><span>🗣️ Personalização de Voz</span> <span class="accordion-icon">▼</span></button>
+          <div class="accordion-header" onclick="toggleAccordion(this); populateVoices();">
+            <span style="flex:1;">🗣️ Personalização de Voz</span>
+            <div class="access-btns"><span class="access-btn" onclick="toggleAccordionAudio(event, this)">🔊</span><span class="access-btn" onclick="toggleAccordionLibras(event, this)">🤟</span></div>
+            <span class="accordion-icon">▼</span>
+          </div>
           <div class="accordion-content"><br>
             <span class="panel-label">Voz Humana</span><select id="voiceSelect" class="panel-select" onchange="updateVoiceSettings()"></select>
             <span class="panel-label">Estilos</span>
@@ -212,8 +232,13 @@
         </div>
 
         <div class="accordion-item">
-          <button class="accordion-header" onclick="toggleAccordion(this)"><span>🔒 Privacidade & Inteligência</span> <span class="accordion-icon">▼</span></button>
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span style="flex:1;">🔒 Privacidade & Inteligência</span>
+            <div class="access-btns"><span class="access-btn" onclick="toggleAccordionAudio(event, this)">🔊</span><span class="access-btn" onclick="toggleAccordionLibras(event, this)">🤟</span></div>
+            <span class="accordion-icon">▼</span>
+          </div>
           <div class="accordion-content"><br>
+            <p style="font-size: 0.8rem; color: #666; margin-bottom: 12px;">Você tem total controle sobre sua privacidade e armazenamento.</p>
             <button id="download-ai-btn" onclick="downloadRealAI()" class="theme-btn" style="background:#0984e3; color:white; border:none;">🧠 Baixar Assistente Offline</button>
             <button onclick="clearChatMemory()" class="theme-btn" style="background:#e17055; color:white; border:none;">🧹 Apagar Histórico de Conversa</button>
             <div style="display:flex; gap:6px; margin-top: 6px;">
@@ -225,34 +250,32 @@
         </div>
 
         <div class="accordion-item">
-          <button class="accordion-header" onclick="toggleAccordion(this)"><span>📖 Como usar o aplicativo?</span> <span class="accordion-icon">▼</span></button>
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span style="flex:1;">📖 Como usar o aplicativo?</span>
+            <div class="access-btns"><span class="access-btn" onclick="toggleAccordionAudio(event, this)">🔊</span><span class="access-btn" onclick="toggleAccordionLibras(event, this)">🤟</span></div>
+            <span class="accordion-icon">▼</span>
+          </div>
           <div class="accordion-content"><br>
             <p style="font-size: 0.85rem; margin-bottom:8px;"><strong>🧠 Chat Offline Agentic:</strong><br>Se a internet cair, a IA nativa assume a conversa para te apoiar em uma crise.</p>
             <p style="font-size: 0.85rem; margin-bottom:8px;"><strong>🧹 Limpeza (Reset):</strong><br>Em "Privacidade", clique em "Apagar Histórico" para zerar a memória da IA.</p>
             <p style="font-size: 0.85rem; margin-bottom:8px;"><strong>🤟 Acessibilidade Surda:</strong><br>Toque na mãozinha nas mensagens para GLOSA.</p>
+            <p style="font-size: 0.85rem; margin-bottom:8px;"><strong>📊 Termômetro Emocional:</strong><br>O chat pode sugerir barras para você medir sua ansiedade e emoções facilmente.</p>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
-  <div id="hero-wrapper" class="animation-wrapper">
-    <canvas id="logoCanvas" width="400" height="400"></canvas>
-    <span class="hero-caption">Aquele Abraço</span>
-  </div>
-
+  <div id="hero-wrapper" class="animation-wrapper"><canvas id="logoCanvas" width="400" height="400"></canvas><span class="hero-caption">Aquele Abraço</span></div>
   <main id="chat-container"></main>
 
+  <!-- CONTROLES -->
   <div id="emoji-picker-modal">
     <div class="emoji-category">
       <span>Expressões Rápidas</span>
       <div class="emoji-grid">
-        <button class="emoji-item" onclick="sendEmoji('😊')">😊</button>
-        <button class="emoji-item" onclick="sendEmoji('😭')">😭</button>
-        <button class="emoji-item" onclick="sendEmoji('🤯')">🤯</button>
-        <button class="emoji-item" onclick="sendEmoji('❤️')">❤️</button>
-        <button class="emoji-item" onclick="sendEmoji('🆘')">🆘</button>
+        <button class="emoji-item" onclick="sendEmoji('😊')">😊</button><button class="emoji-item" onclick="sendEmoji('😭')">😭</button>
+        <button class="emoji-item" onclick="sendEmoji('🤯')">🤯</button><button class="emoji-item" onclick="sendEmoji('❤️')">❤️</button><button class="emoji-item" onclick="sendEmoji('🆘')">🆘</button>
       </div>
     </div>
   </div>
@@ -270,34 +293,12 @@
     </div>
   </div>
 
-  <div id="camera-modal" class="modal-overlay">
-    <div class="modal-card" style="align-items:center; text-align:center;">
-      <div class="modal-header">
-        <span class="modal-title">Gravação de Sinais</span>
-        <button class="close-btn" onclick="closeModal('camera-modal')">&times;</button>
-      </div>
-      <div class="modal-body" style="width:100%; align-items:center;">
-        <video id="webcam-preview" autoplay playsinline style="width:100%; max-height:250px; border-radius:12px; background:#000;"></video>
-        <button id="captureLibrasBtn" onclick="captureSignLanguage()" style="margin-top:12px; padding:10px 20px; background:var(--primary-color); color:var(--bg-color); border:none; border-radius:8px; cursor:pointer;">Gravar Comunicação</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="canvas-modal">
-    <div class="canvas-header"><span>Espaço de Expressão Livre</span><button class="tool-btn" onclick="closeCanvas()">Concluir</button></div>
-    <canvas id="artCanvas"></canvas>
-    <div class="canvas-tools">
-      <button class="tool-btn" onclick="setTool('pen')">✏️ Caneta</button>
-      <button class="tool-btn" onclick="setTool('eraser')">🧽 Borracha</button>
-      <input type="color" id="colorPicker" value="#2d3436" onchange="setColor(this.value)">
-      <button class="tool-btn" onclick="clearCanvas()">🗑️ Limpar</button>
-    </div>
-  </div>
-
-  <div id="panic-screen"><div class="panic-content"><div class="panic-icon">⚠️</div><div class="panic-h1">Esta página não está funcionando</div><div class="panic-p">A página solicitada não pode ser carregada no momento.</div><div class="panic-code" onclick="triggerEmergencyDial()">ERR_INTERNET_DISCONNECTED</div></div></div>
+  <div id="camera-modal" class="modal-overlay"><div class="modal-card" style="align-items:center; text-align:center;"><div class="modal-header" style="width:100%;"><span class="modal-title">Gravação de Sinais</span><button class="close-btn" onclick="closeModal('camera-modal')">&times;</button></div><div class="modal-body" style="width:100%; align-items:center;"><video id="webcam-preview" autoplay playsinline style="width:100%; max-height:250px; border-radius:12px; background:#000;"></video><button id="captureLibrasBtn" onclick="captureSignLanguage()" style="margin-top:12px; padding:10px 20px; background:var(--primary-color); color:var(--bg-color); border:none; border-radius:8px; cursor:pointer;">Gravar Comunicação</button></div></div></div>
+  <div id="canvas-modal"><div class="canvas-header"><span>Espaço de Expressão Livre</span><button class="tool-btn" onclick="closeCanvas()">Concluir</button></div><canvas id="artCanvas"></canvas><div class="canvas-tools"><button class="tool-btn" onclick="setTool('pen')">✏️ Caneta</button><button class="tool-btn" onclick="setTool('eraser')">🧽 Borracha</button><input type="color" id="colorPicker" value="#2d3436" onchange="setColor(this.value)"><button class="tool-btn" onclick="clearCanvas()">🗑️ Limpar</button></div></div>
+  <div id="panic-screen"><div class="panic-content"><div class="panic-icon">⚠️</div><div class="panic-h1">Esta página não está funcionando</div><div class="panic-code" onclick="triggerEmergencyDial()">ERR_INTERNET_DISCONNECTED</div></div></div>
   <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
 
-  <!-- JAVASCRIPT BLINDADO COM ÁUDIO FIXO -->
+  <!-- JAVASCRIPT BLINDADO COM TERMÔMETRO EMOCIONAL -->
   <script>
     const Storage = {
       get: function(key) { try { return localStorage.getItem(key); } catch(e) { return null; } },
@@ -312,8 +313,15 @@
     let deferredPrompt = null;
     let currentEmotionalState = "ESTÁVEL";
 
+    // FIX V5.4: Dicionário atualizado com os gatilhos dos Sliders Emocionais
     const cbtSuggestions = {
-      "crise_fisica": [ { "label": "🧘 Técnica 5-4-3-2-1", "action": "TECNICA_54321" }, { "label": "🎧 Ligar som 432Hz", "action": "PLAY_432" } ],
+      "ansiedade_leve": [ { "label": "📊 Medir Ansiedade e Preocupação", "action": "METER_ANSIEDADE" } ],
+      "crise_fisica": [ 
+        { "label": "📊 Medir Dor e Fadiga", "action": "METER_DOR" },
+        { "label": "🧘 Técnica 5-4-3-2-1", "action": "TECNICA_54321" }, 
+        { "label": "🎧 Ligar som 432Hz", "action": "PLAY_432" } 
+      ],
+      "tristeza_profunda": [ { "label": "📊 Medir Tristeza e Tédio", "action": "METER_TRISTEZA" } ],
       "sobrecarga_sensorial": [ { "label": "🔊 Ativar Reset 852Hz", "action": "PLAY_852" } ],
       "redirecionar_arteterapia": [ { "label": "🎨 Abrir tela de desenho", "action": "OPEN_ART" } ]
     };
@@ -348,15 +356,8 @@
           const logoAnchor = document.getElementById('logo-anchor');
           const brandTitle = document.getElementById('brand-title');
           const chatContainer = document.getElementById('chat-container');
-          
-          logoAnchor.appendChild(heroWrapper);
-          heroWrapper.classList.add('minimized');
-          brandTitle.classList.add('visible');
-          chatContainer.classList.add('visible');
-        } catch (e) {
-          document.getElementById('hero-wrapper').style.display = 'none';
-          document.getElementById('chat-container').style.opacity = '1';
-        }
+          logoAnchor.appendChild(heroWrapper); heroWrapper.classList.add('minimized'); brandTitle.classList.add('visible'); chatContainer.classList.add('visible');
+        } catch (e) { document.getElementById('hero-wrapper').style.display = 'none'; document.getElementById('chat-container').style.opacity = '1'; }
       }, 4000); 
     });
 
@@ -367,12 +368,10 @@
 
     window.clearChatMemory = function() {
       if(confirm("Tem certeza que deseja apagar toda a sua conversa?")) {
-        state.session_history = []; Storage.set('aquele_abraco_state', JSON.stringify(state)); renderHistory(); currentEmotionalState = "ESTÁVEL";
-        showToast("🧹 Memória apagada."); closeModal('settings-modal');
+        state.session_history = []; Storage.set('aquele_abraco_state', JSON.stringify(state)); renderHistory(); currentEmotionalState = "ESTÁVEL"; showToast("🧹 Memória apagada."); closeModal('settings-modal');
       }
     }
 
-    /* FIX V5.2: TRADUTOR DE LIBRAS CORRIGIDO */
     window.toggleGlosaText = function(text, parentElem) {
       let glosaBox = parentElem.querySelector('.glosa-box');
       if (!glosaBox) {
@@ -384,6 +383,82 @@
         glosaBox.innerText = `🤟 GLOSA: ${glosa.replace(/\s+/g, ' ').trim()}`;
         parentElem.appendChild(glosaBox); setTimeout(() => glosaBox.classList.add('visible'), 10);
       } else { glosaBox.classList.toggle('visible'); }
+    }
+
+    /* FIX V5.4: FUNÇÃO PARA GERAR O TERMÔMETRO EMOCIONAL NO CHAT */
+    window.renderEmotionMeters = function(btnElement, metricsConfig) {
+      const card = document.createElement('div');
+      card.className = 'emotion-sliders-card';
+      
+      const title = document.createElement('p');
+      title.style.fontSize = '0.85rem'; title.style.color = '#666'; title.style.marginBottom = '4px';
+      title.innerText = "Arraste as barras para me dizer como está se sentindo de 0 a 10:";
+      card.appendChild(title);
+
+      const slidersData = [];
+
+      metricsConfig.forEach(metric => {
+        const row = document.createElement('div'); row.className = 'emotion-slider-row';
+        
+        const labelBox = document.createElement('div'); labelBox.className = 'emotion-label';
+        const nameSpan = document.createElement('span'); nameSpan.innerText = metric.label;
+        const valSpan = document.createElement('span'); valSpan.className = 'emotion-val-display'; valSpan.innerText = "5";
+        labelBox.appendChild(nameSpan); labelBox.appendChild(valSpan);
+
+        const range = document.createElement('input');
+        range.type = 'range'; range.className = 'emotion-range';
+        range.min = 0; range.max = 10; range.step = 1; range.value = 5;
+        
+        range.oninput = function() { valSpan.innerText = this.value; };
+        
+        row.appendChild(labelBox); row.appendChild(range);
+        card.appendChild(row);
+        
+        slidersData.push({ name: metric.label, input: range });
+      });
+
+      const submitBtn = document.createElement('button');
+      submitBtn.className = 'emotion-submit-btn';
+      submitBtn.innerText = "Enviar Medição";
+      submitBtn.onclick = () => {
+        let textResult = "[Escala de Sofrimento SUDS]\n";
+        slidersData.forEach(item => { textResult += `Nível de ${item.name}: ${item.input.value}/10.\n`; });
+        submitBtn.innerText = "✓ Enviado"; submitBtn.disabled = true; submitBtn.style.background = "#d4edda"; submitBtn.style.color = "#155724";
+        
+        // Desabilita os sliders
+        slidersData.forEach(item => item.input.disabled = true);
+        
+        // Envia pro chat como se o usuario tivesse digitado
+        appendMessage(textResult.trim(), 'user');
+        processUserMessage(textResult.trim());
+      };
+      
+      card.appendChild(submitBtn);
+      btnElement.parentElement.appendChild(card);
+      btnElement.remove(); // Tira o botão original para a tela ficar limpa
+    }
+
+    window.executeCBTSuggestion = function(actionCode, btnElement) {
+      // Verifica se é uma ação de termômetro e chama a função nova
+      if (actionCode === 'METER_ANSIEDADE') {
+        window.renderEmotionMeters(btnElement, [ { label: 'Ansiedade' }, { label: 'Preocupação' }, { label: 'Empolgação' } ]);
+        return;
+      } else if (actionCode === 'METER_DOR') {
+        window.renderEmotionMeters(btnElement, [ { label: 'Dor Física' }, { label: 'Fadiga / Cansaço' } ]);
+        return;
+      } else if (actionCode === 'METER_TRISTEZA') {
+        window.renderEmotionMeters(btnElement, [ { label: 'Tristeza' }, { label: 'Tédio' } ]);
+        return;
+      }
+
+      // Funções originais
+      if (actionCode === 'PLAY_432') playAcoustic('binaural');
+      else if (actionCode === 'PLAY_852') playAcoustic('reset');
+      else if (actionCode === 'OPEN_ART') openCanvas();
+      else if (actionCode === 'TECNICA_54321') {
+        appendMessage("Vamos aterrar sua mente. Olhe ao redor e encontre: 5 coisas que você pode ver. 4 que pode tocar. 3 ouvir. 2 cheirar. 1 emoção boa.", 'assistant', false);
+      }
+      btnElement.innerText = "✓ " + btnElement.innerText; btnElement.style.background = "#d4edda"; btnElement.disabled = true;
     }
 
     window.downloadRealAI = async function() {
@@ -417,120 +492,36 @@
     function setTheme(theme) { document.body.className = ''; if (theme !== 'light') document.body.classList.add(`theme-${theme}`); }
     function setBrightness(val) { document.documentElement.style.setProperty('--screen-brightness', val); }
 
-    window.executeCBTSuggestion = function(actionCode, btnElement) {
-      if (actionCode === 'PLAY_432') playAcoustic('binaural');
-      else if (actionCode === 'PLAY_852') playAcoustic('reset');
-      else if (actionCode === 'OPEN_ART') openCanvas();
-      else if (actionCode === 'TECNICA_54321') {
-        appendMessage("Vamos aterrar sua mente. Olhe ao redor e encontre: 5 coisas que você pode ver. 4 que pode tocar. 3 ouvir. 2 cheirar. 1 emoção boa.", 'assistant', false);
-      }
-      btnElement.innerText = "✓ " + btnElement.innerText; btnElement.style.background = "#d4edda"; btnElement.disabled = true;
-    }
-
-    /* ============================================================== */
-    /* FIX V5.2: MOTOR DE ÁUDIO RECONSTRUÍDO (Assíncrono)             */
-    /* ============================================================== */
     let synthAudioCtx = null; let synthNodes = []; let currentSpeakingPElem = null;
-
-    async function initSynthAudio() { 
-      if (!synthAudioCtx) {
-        synthAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); 
-      }
-      if (synthAudioCtx.state === 'suspended') {
-        await synthAudioCtx.resume(); 
-      }
-    }
-    
+    async function initSynthAudio() { if (!synthAudioCtx) { synthAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); } if (synthAudioCtx.state === 'suspended') { await synthAudioCtx.resume(); } }
     function stopSyntheticAudio() { synthNodes.forEach(node => { try { node.stop(); } catch(e) {} }); synthNodes = []; }
-    
     function createPinkNoise() { const bufferSize = 2 * synthAudioCtx.sampleRate; const noiseBuffer = synthAudioCtx.createBuffer(1, bufferSize, synthAudioCtx.sampleRate); const output = noiseBuffer.getChannelData(0); let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0; for (let i = 0; i < bufferSize; i++) { let white = Math.random() * 2 - 1; b0 = 0.99886 * b0 + white * 0.0555179; b1 = 0.99332 * b1 + white * 0.0750759; b2 = 0.96900 * b2 + white * 0.1538520; b3 = 0.86650 * b3 + white * 0.3104856; b4 = 0.55000 * b4 + white * 0.5329522; b5 = -0.7616 * b5 - white * 0.0168980; output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362; output[i] *= 0.11; b6 = white * 0.115926; } return noiseBuffer; }
-    
     function playRain() { stopSyntheticAudio(); const noiseSource = synthAudioCtx.createBufferSource(); noiseSource.buffer = createPinkNoise(); noiseSource.loop = true; const filter = synthAudioCtx.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = 1000; const gain = synthAudioCtx.createGain(); gain.gain.value = 0.5; noiseSource.connect(filter); filter.connect(gain); gain.connect(synthAudioCtx.destination); noiseSource.start(); synthNodes.push(noiseSource); }
-    
     function playBinaural() { stopSyntheticAudio(); const oscL = synthAudioCtx.createOscillator(); oscL.type = 'sine'; oscL.frequency.value = 432; const oscR = synthAudioCtx.createOscillator(); oscR.type = 'sine'; oscR.frequency.value = 436; const panL = synthAudioCtx.createStereoPanner ? synthAudioCtx.createStereoPanner() : synthAudioCtx.createPanner(); if(panL.pan) panL.pan.value = -1; else panL.setPosition(-1, 0, 0); const panR = synthAudioCtx.createStereoPanner ? synthAudioCtx.createStereoPanner() : synthAudioCtx.createPanner(); if(panR.pan) panR.pan.value = 1; else panR.setPosition(1, 0, 0); const gain = synthAudioCtx.createGain(); gain.gain.value = 0.15; oscL.connect(panL); oscR.connect(panR); panL.connect(gain); panR.connect(gain); gain.connect(synthAudioCtx.destination); oscL.start(); oscR.start(); synthNodes.push(oscL, oscR); }
-    
     function play852Hz() { stopSyntheticAudio(); const osc = synthAudioCtx.createOscillator(); const gain = synthAudioCtx.createGain(); osc.type = 'sine'; osc.frequency.value = 852; gain.gain.setValueAtTime(0, synthAudioCtx.currentTime); gain.gain.linearRampToValueAtTime(0.15, synthAudioCtx.currentTime + 2); osc.connect(gain); gain.connect(synthAudioCtx.destination); osc.start(); synthNodes.push(osc); }
-    
-    window.playAcoustic = async function(track) { 
-      const player = document.getElementById('ambientPlayer'); 
-      player.pause(); 
-      stopSyntheticAudio(); 
-      closeModal('audio-modal'); 
+    window.playAcoustic = async function(track) { const player = document.getElementById('ambientPlayer'); player.pause(); stopSyntheticAudio(); closeModal('audio-modal'); try { if (track === 'chuva') { await initSynthAudio(); playRain(); showToast("🌧️ Som de chuva ativado."); } else if (track === 'binaural') { await initSynthAudio(); playBinaural(); showToast("🌊 Frequência Binaural ativada."); } else if (track === 'reset') { await initSynthAudio(); play852Hz(); showToast("⚡ Reset Cognitivo (852Hz) ativado."); } else if (track === 'mindfulness') { player.src = 'https://ice1.somafm.com/dronezone-128-mp3'; player.volume = 0.2; showToast("🧘‍♂️ Conectando à Rádio..."); player.play().then(() => { showToast("🧘‍♂️ Rádio conectada!"); }).catch(e => { showToast("⚠️ Navegador bloqueou o som."); }); } } catch (e) { showToast("⚠️ Erro no áudio."); } }
+    window.stopAcoustic = function() { const player = document.getElementById('ambientPlayer'); player.pause(); stopSyntheticAudio(); closeModal('audio-modal'); showToast("⏹️ Áudio desligado."); }
 
-      try {
-        if (track === 'chuva') { 
-          await initSynthAudio(); playRain(); showToast("🌧️ Som de chuva ativado."); 
-        } else if (track === 'binaural') { 
-          await initSynthAudio(); playBinaural(); showToast("🌊 Frequência Binaural ativada."); 
-        } else if (track === 'reset') { 
-          await initSynthAudio(); play852Hz(); showToast("⚡ Reset Cognitivo (852Hz) ativado."); 
-        } else if (track === 'mindfulness') { 
-          player.src = 'https://ice1.somafm.com/dronezone-128-mp3'; 
-          player.volume = 0.2; 
-          showToast("🧘‍♂️ Conectando à Rádio Mindfulness...");
-          player.play().then(() => {
-            showToast("🧘‍♂️ Rádio conectada com sucesso!");
-          }).catch(e => {
-            console.error(e);
-            showToast("⚠️ Navegador bloqueou o som. Toque na tela e tente de novo.");
-          });
-        } 
-      } catch (e) {
-        showToast("⚠️ Erro no áudio. Verifique o volume do celular.");
-      }
-    }
-    
-    window.stopAcoustic = function() { 
-      const player = document.getElementById('ambientPlayer'); 
-      player.pause(); 
-      stopSyntheticAudio(); 
-      closeModal('audio-modal'); 
-      showToast("⏹️ Áudio desligado.");
-    }
-    
     function resetAudioState() { document.querySelectorAll('.paragraph-item').forEach(p => p.classList.remove('speaking')); document.querySelectorAll('.access-btn').forEach(b => { if(b.innerText === '⏹️') b.innerText = '🔊'; }); currentSpeakingPElem = null; }
     function initVoices() { if ('speechSynthesis' in window) window.speechSynthesis.onvoiceschanged = () => populateVoices(); }
     function populateVoices() { if (!('speechSynthesis' in window)) return; const select = document.getElementById('voiceSelect'); if (!select) return; const voices = window.speechSynthesis.getVoices(); select.innerHTML = ''; const ptVoices = voices.filter(v => v.lang.includes('pt')); const otherVoices = voices.filter(v => !v.lang.includes('pt')); if (ptVoices.length > 0) { const groupPt = document.createElement('optgroup'); groupPt.label = "✨ Vozes em Português"; ptVoices.forEach(v => { const opt = document.createElement('option'); opt.value = voices.indexOf(v); opt.textContent = `${v.name.includes("Google") ? "🤖✨ " : "🎙️ "}${v.name}`; groupPt.appendChild(opt); }); select.appendChild(groupPt); } else { voices.forEach((v, idx) => { const opt = document.createElement('option'); opt.value = idx; opt.textContent = v.name; select.appendChild(opt); }); } if (state.voiceSettings && voices[state.voiceSettings.voiceIndex]) select.value = state.voiceSettings.voiceIndex; }
     function applyVoicePreset(presetName) { const p = document.getElementById('voicePitch'), r = document.getElementById('voiceRate'); if (presetName === 'acolhedora') { p.value = 0.95; r.value = 0.85; } else if (presetName === 'serena') { p.value = 0.85; r.value = 0.75; } else if (presetName === 'energique') { p.value = 1.15; r.value = 1.05; } else { p.value = 1.0; r.value = 0.95; } updateVoiceSettings(); }
     function updateVoiceSettings() { state.voiceSettings = { voiceIndex: parseInt(document.getElementById('voiceSelect').value) || 0, pitch: parseFloat(document.getElementById('voicePitch').value) || 1.0, rate: parseFloat(document.getElementById('voiceRate').value) || 0.95, volume: parseFloat(document.getElementById('voiceVolume').value) || 1.0, autoAdvance: document.getElementById('autoAdvanceCheck').checked }; document.getElementById('pitchVal').innerText = state.voiceSettings.pitch; document.getElementById('rateVal').innerText = state.voiceSettings.rate; document.getElementById('volVal').innerText = Math.round(state.voiceSettings.volume * 100) + '%'; saveState(); }
     function testVoiceSettings() { updateVoiceSettings(); window.speechSynthesis.cancel(); resetAudioState(); const utt = new SpeechSynthesisUtterance("Este é um teste da voz humanizada do Aquele Abraço."); utt.lang = 'pt-BR'; const voices = window.speechSynthesis.getVoices(); if (voices[state.voiceSettings.voiceIndex]) utt.voice = voices[state.voiceSettings.voiceIndex]; utt.pitch = state.voiceSettings.pitch; utt.rate = state.voiceSettings.rate; utt.volume = state.voiceSettings.volume; window.speechSynthesis.speak(utt); }
-    
-    window.toggleAudioForParagraph = function(pText, pElem, btnElem) { 
-      if (!('speechSynthesis' in window)) return alert("Síntese não suportada."); 
-      if (currentSpeakingPElem === pElem && window.speechSynthesis.speaking) { window.speechSynthesis.cancel(); resetAudioState(); return; } 
-      window.speechSynthesis.cancel(); resetAudioState(); 
-      const utterance = new SpeechSynthesisUtterance(pText); utterance.lang = 'pt-BR'; 
-      const voices = window.speechSynthesis.getVoices(); 
-      if (state.voiceSettings && voices[state.voiceSettings.voiceIndex]) { 
-        utterance.voice = voices[state.voiceSettings.voiceIndex]; 
-        utterance.pitch = state.voiceSettings.pitch; utterance.rate = state.voiceSettings.rate; utterance.volume = state.voiceSettings.volume; 
-      } else utterance.rate = 0.95; 
-      
-      utterance.onend = () => { 
-        pElem.classList.remove('speaking'); if (btnElem) btnElem.innerText = '🔊'; currentSpeakingPElem = null; 
-        if (state.voiceSettings?.autoAdvance) { 
-          const parentMsg = pElem.closest('.message'); 
-          if (parentMsg) { 
-            const paragraphs = Array.from(parentMsg.querySelectorAll('.paragraph-item')); 
-            const currentIndex = paragraphs.indexOf(pElem); 
-            if (currentIndex !== -1 && currentIndex < paragraphs.length - 1) { 
-              const nextPElem = paragraphs[currentIndex + 1]; let nextBtnElem = null; 
-              nextPElem.querySelectorAll('.access-btn').forEach(b => { if(b.innerText === '🔊') nextBtnElem = b; }); 
-              setTimeout(() => { toggleAudioForParagraph(nextPElem.querySelector('.paragraph-text').innerText, nextPElem, nextBtnElem); }, 250); 
-            } 
-          } 
-        } 
-      }; 
-      utterance.onerror = () => resetAudioState(); 
-      pElem.classList.add('speaking'); if (btnElem) btnElem.innerText = '⏹️'; currentSpeakingPElem = pElem; 
-      window.speechSynthesis.speak(utterance); 
-    }
-    /* ============================================================== */
+
+    window.readGenericText = function(text, btnElem) { if (!('speechSynthesis' in window)) return alert("Síntese não suportada."); if (window.speechSynthesis.speaking && btnElem.innerText === '⏹️') { window.speechSynthesis.cancel(); resetAudioState(); return; } window.speechSynthesis.cancel(); resetAudioState(); const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'pt-BR'; const voices = window.speechSynthesis.getVoices(); if (state.voiceSettings && voices[state.voiceSettings.voiceIndex]) { utterance.voice = voices[state.voiceSettings.voiceIndex]; utterance.pitch = state.voiceSettings.pitch; utterance.rate = state.voiceSettings.rate; utterance.volume = state.voiceSettings.volume; } else utterance.rate = 0.95; utterance.onend = () => resetAudioState(); utterance.onerror = () => resetAudioState(); btnElem.innerText = '⏹️'; window.speechSynthesis.speak(utterance); }
+    window.toggleAccordionAudio = function(event, btnElem) { event.stopPropagation(); const item = btnElem.closest('.accordion-item'); if (!item.classList.contains('open')) { document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open')); item.classList.add('open'); } readGenericText(item.querySelector('.accordion-content').innerText, btnElem); }
+    window.toggleAccordionLibras = function(event, btnElem) { event.stopPropagation(); const item = btnElem.closest('.accordion-item'); if (!item.classList.contains('open')) { document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open')); item.classList.add('open'); } window.toggleGlosaText(item.querySelector('.accordion-content').innerText, item.querySelector('.accordion-content')); }
+    window.toggleAudioForParagraph = function(pText, pElem, btnElem) { if (!('speechSynthesis' in window)) return alert("Síntese não suportada."); if (currentSpeakingPElem === pElem && window.speechSynthesis.speaking) { window.speechSynthesis.cancel(); resetAudioState(); return; } window.speechSynthesis.cancel(); resetAudioState(); const utterance = new SpeechSynthesisUtterance(pText); utterance.lang = 'pt-BR'; const voices = window.speechSynthesis.getVoices(); if (state.voiceSettings && voices[state.voiceSettings.voiceIndex]) { utterance.voice = voices[state.voiceSettings.voiceIndex]; utterance.pitch = state.voiceSettings.pitch; utterance.rate = state.voiceSettings.rate; utterance.volume = state.voiceSettings.volume; } else utterance.rate = 0.95; utterance.onend = () => { pElem.classList.remove('speaking'); if (btnElem) btnElem.innerText = '🔊'; currentSpeakingPElem = null; if (state.voiceSettings?.autoAdvance) { const parentMsg = pElem.closest('.message'); if (parentMsg) { const paragraphs = Array.from(parentMsg.querySelectorAll('.paragraph-item')); const currentIndex = paragraphs.indexOf(pElem); if (currentIndex !== -1 && currentIndex < paragraphs.length - 1) { const nextPElem = paragraphs[currentIndex + 1]; let nextBtnElem = null; nextPElem.querySelectorAll('.access-btn').forEach(b => { if(b.innerText === '🔊') nextBtnElem = b; }); setTimeout(() => { toggleAudioForParagraph(nextPElem.querySelector('.paragraph-text').innerText, nextPElem, nextBtnElem); }, 250); } } } }; utterance.onerror = () => resetAudioState(); pElem.classList.add('speaking'); if (btnElem) btnElem.innerText = '⏹️'; currentSpeakingPElem = pElem; window.speechSynthesis.speak(utterance); }
 
     // Roteador Inteligente
     async function processUserMessageWithCascade(userText) {
       const txt = userText.toUpperCase(); let suggestedCBT = null;
-      if (/\b(CORAÇÃO|RESPIRAR|FALTA DE AR|DOR|PÂNICO|SUOR|TREMOR)\b/.test(txt) || currentEmotionalState === "ALERTA_PÂNICO") suggestedCBT = 'crise_fisica';
+      
+      // FIX V5.4: NOVOS GATILHOS PARA O TERMÔMETRO EMOCIONAL
+      if (/\b(CORAÇÃO|FALTA DE AR|DOR|SUOR|TREMOR|FADIGA|CANSAÇO|CANSADA)\b/.test(txt)) suggestedCBT = 'crise_fisica';
+      else if (/\b(ANSIEDADE|ANSIOSA|PREOCUPADA|MEDO|AGITADA|EMPOLGADA)\b/.test(txt) || currentEmotionalState === "ALERTA_PÂNICO") suggestedCBT = 'ansiedade_leve';
+      else if (/\b(TRISTE|CHORO|DEPRIMIDA|TÉDIO|DESANIMADA)\b/.test(txt)) suggestedCBT = 'tristeza_profunda';
       else if (/\b(BARULHO|CABEÇA|PENSAMENTO|MUITO|SOBRECARGA|CONFUSÃO|GRITO)\b/.test(txt)) suggestedCBT = 'sobrecarga_sensorial';
       else if (/\b(DESENHAR|ARTE|DISTRAIR|PINTAR|DESENHO)\b/.test(txt)) suggestedCBT = 'redirecionar_arteterapia';
 
@@ -547,16 +538,16 @@
         try {
           const currentTime = new Date().toLocaleString('pt-BR');
           let historyContext = state.session_history.map(msg => `[${msg.time || 'Anterior'}] ${msg.sender === 'user' ? 'Paciente' : 'Aquele Abraço'}: ${msg.text}`).join('\n');
-          const systemPrompt = `Você é o 'Aquele Abraço', assistente de saúde mental. Data/hora: ${currentTime}.\nContexto temporal:\n${historyContext}\n\nO usuário pode digitar em Português ou GLOSA. Responda com empatia e evite repetições absurdas.`;
+          const systemPrompt = `Você é o 'Aquele Abraço', assistente de saúde mental. Data/hora: ${currentTime}.\nContexto temporal:\n${historyContext}\n\nO usuário pode digitar em Português ou GLOSA ou mandar uma Escala SUDS numerada. Responda com empatia e evite repetições absurdas.`;
           const result = await window.offlineAIEngine.engine.chat.completions.create({ messages: [{ role: "system", content: systemPrompt }, { role: "user", content: `[${currentTime}] Paciente: ${userText}` }] });
           return { text: result.choices[0].message.content, source: 'WEBLLM_CACHE', suggestedCBT };
         } catch (error) {}
       }
 
       if (navigator.onLine) {
-         return { text: "Minha conexão principal está lenta, mas eu estou com você. Quer tentar uma técnica rápida para se acalmar?", source: 'NUVEM_TIMEOUT', suggestedCBT: suggestedCBT || 'crise_fisica' };
+         return { text: "Minha conexão principal está lenta, mas eu estou com você. Quer tentar medir como está se sentindo ou usar uma técnica para se acalmar?", source: 'NUVEM_TIMEOUT', suggestedCBT: suggestedCBT || 'ansiedade_leve' };
       } else {
-         return { text: "Estou operando no modo offline para te proteger. Eu te ouço, mas minhas respostas estão limitadas agora. Quer tentar alguma ferramenta do aplicativo?", source: 'TCC_CHATBOT', suggestedCBT: suggestedCBT || 'crise_fisica' }; 
+         return { text: "Estou operando no modo offline para te proteger. Posso ouvir o seu desabafo e te ajudar a medir como se sente agora.", source: 'TCC_CHATBOT', suggestedCBT: suggestedCBT || 'ansiedade_leve' }; 
       }
     }
 
@@ -584,7 +575,6 @@
       appendMessage(cleanText, 'assistant', true, result.suggestedCBT);
     }
 
-    // FIX V5.1: MENSAGEM COM BOTÕES RESTAURADA
     function appendMessage(text, sender, save = true, suggestedCBT = null, forceId = null) {
       const container = document.getElementById('chat-container'); 
       const msgDiv = document.createElement('div'); 
@@ -624,18 +614,13 @@
         msgDiv.innerText = text;
       }
       
-      container.appendChild(msgDiv); 
-      container.scrollTop = container.scrollHeight;
+      container.appendChild(msgDiv); container.scrollTop = container.scrollHeight;
       
       const timeStr = new Date().toLocaleString('pt-BR');
       if (save) { state.session_history.push({ text, sender, time: timeStr }); Storage.set('aquele_abraco_state', JSON.stringify(state)); }
     }
 
-    function loadState() { 
-      const saved = Storage.get('aquele_abraco_state'); 
-      if (saved) { const parsed = JSON.parse(saved); if(parsed && Array.isArray(parsed.session_history)) { state = { ...state, ...parsed }; renderHistory(); return; } }
-      renderHistory(); 
-    }
+    function loadState() { const saved = Storage.get('aquele_abraco_state'); if (saved) { const parsed = JSON.parse(saved); if(parsed && Array.isArray(parsed.session_history)) { state = { ...state, ...parsed }; renderHistory(); return; } } renderHistory(); }
     function renderHistory() { const container = document.getElementById('chat-container'); container.innerHTML = ''; appendMessage("Estou aqui com você. O que o seu coração quer me dizer hoje?", 'assistant', false); state.session_history.forEach(msg => appendMessage(msg.text, msg.sender, false)); }
 
     function toggleEmojiPicker() { const picker = document.getElementById('emoji-picker-modal'); picker.style.display = picker.style.display === 'flex' ? 'none' : 'flex'; }
@@ -650,7 +635,7 @@
     function draw(e) { if (!drawing) return; const rect = artCanvas.getBoundingClientRect(); const x = (e.clientX || e.touches[0].clientX) - rect.left; const y = (e.clientY || e.touches[0].clientY) - rect.top; artCtx.lineWidth = currentTool === 'eraser' ? 25 : 3; artCtx.lineCap = 'round'; artCtx.strokeStyle = currentTool === 'eraser' ? getComputedStyle(document.body).getPropertyValue('--bg-color').trim() : strokeColor; artCtx.lineTo(x, y); artCtx.stroke(); artCtx.beginPath(); artCtx.moveTo(x, y); }
   </script>
 
-  <!-- ATIVADOR PWA (v5.2.0 OBRIGATÓRIO NO SW.JS) -->
+  <!-- ATIVADOR PWA (v5.4.0) -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -659,7 +644,7 @@
             const newWorker = reg.installing;
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                if (confirm("Nova versão (V5.2) disponível com Correção do Som! Deseja aplicar?")) {
+                if (confirm("Nova versão (V5.4) disponível! O 'Termômetro Emocional' foi ativado nas conversas. Atualizar agora?")) {
                   newWorker.postMessage({ action: 'skipWaiting' }); window.location.reload();
                 }
               }
