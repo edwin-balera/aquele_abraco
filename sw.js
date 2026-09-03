@@ -1,4 +1,4 @@
-const CACHE_NAME = 'aquele-abraco-v5.4.0';
+const CACHE_NAME = 'aquele-abraco-v5.6.0';
 
 const STATIC_ASSETS = [
   './',
