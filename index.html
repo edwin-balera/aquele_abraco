@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Aquele Abraço 10.3 (Monolithic Edition)</title>
+  <title>Aquele Abraço (Pages & Vision Update)</title>
 
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#fbfbf9">
@@ -24,15 +24,15 @@
     body.theme-blue { --bg-color: #e3f2fd; --card-bg: #f1f8ff; --primary-color: #0984e3; --text-color: #0984e3; --border-color: #74b9ff; --accent: #0984e3; }
     body.theme-green { --bg-color: #e8f5e9; --card-bg: #f1f8e9; --primary-color: #2e7d32; --text-color: #2e7d32; --border-color: #a5d6a7; --accent: #2e7d32; }
     
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, sans-serif; }
     html, body { height: 100dvh; width: 100vw; overflow: hidden; background-color: var(--bg-color); color: var(--text-color); }
     body { display: flex; flex-direction: column; justify-content: space-between; }
     
     #brightness-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; background-color: black; opacity: var(--screen-brightness, 0); pointer-events: none; z-index: 999; }
 
-    ::-webkit-scrollbar { width: 12px; height: 12px; }
-    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 10px; border: 1px solid var(--border-color); }
-    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; border: 2px solid var(--bg-color); }
+    ::-webkit-scrollbar { width: 10px; height: 10px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 8px; border: 1px solid var(--border-color); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 8px; border: 2px solid var(--bg-color); }
     body.theme-dark ::-webkit-scrollbar-thumb { background: #636e72; }
 
     header { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); flex-shrink: 0; z-index: 10; height: 75px; }
@@ -63,6 +63,7 @@
     
     .glosa-box { background-color: rgba(108, 92, 231, 0.08); border-left: 4px solid var(--accent); padding: 14px; margin-top: 10px; font-family: monospace; font-size: calc(0.95rem * var(--zoom-factor)); color: var(--text-color); border-radius: 0 8px 8px 0; display: none; width: 100%; word-break: break-word; font-weight: bold; max-height: 200px; overflow-y: auto; }
     .glosa-box.visible { display: block; }
+    .chat-thumbnail { max-width: 100%; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 8px; background: white; }
 
     .cbt-inline-buttons { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; width: 100%; border-top: 1px dotted var(--border-color); padding-top: 12px; }
     .cbt-inline-btn { padding: 14px; border: 1px solid var(--primary-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color); font-weight: 600; font-size: calc(1rem * var(--zoom-factor)); cursor: pointer; text-align: left; display: flex; align-items: center; gap: 10px;}
@@ -85,7 +86,6 @@
     .attach-menu { position: absolute; bottom: 85px; left: 16px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); opacity: 0; pointer-events: none; transition: 0.3s; transform: translateY(20px) scale(0.95); transform-origin: bottom left; }
     .attach-menu.active { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
     .attach-item { display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-color); border-radius: 8px; cursor: pointer; font-weight: 700; font-size: calc(1rem * var(--zoom-factor)); border: none; color: var(--text-color); width: 100%; text-align: left; }
-    #fileInput { display: none; }
 
     #emoji-picker-wrapper { overflow: hidden; transition: max-height 0.4s ease; max-height: 0; width: 100%; }
     #emoji-picker-wrapper.open { max-height: 280px; }
@@ -103,21 +103,18 @@
     .modal-title { font-size: calc(1.35rem * var(--zoom-factor)); font-weight: 800; }
     .close-btn { background: var(--bg-color); border: 1px solid var(--border-color); width: 40px; height: 40px; border-radius: 50%; font-size: 1.4rem; cursor: pointer; color: var(--text-color); display: flex; align-items: center; justify-content: center;}
     
-    /* FIX DEFINITIVO DA ROLAGEM */
     .modal-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 16px; overflow-y: scroll !important; -webkit-overflow-scrolling: touch !important; overscroll-behavior: contain; }
     .modal-body::-webkit-scrollbar { width: 10px !important; display: block !important; -webkit-appearance: none !important; }
     .modal-body::-webkit-scrollbar-track { background: rgba(0,0,0,0.05) !important; border-radius: 10px !important; }
     .modal-body::-webkit-scrollbar-thumb { background-color: var(--accent) !important; border-radius: 10px !important; border: 2px solid var(--card-bg) !important; }
 
-    .accordion-item { border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; background-color: var(--bg-color); transition: 0.3s; margin-bottom: 10px; }
-    .accordion-header { width: 100%; padding: 18px 20px; text-align: left; background: none; border: none; font-size: calc(1.05rem * var(--zoom-factor)); font-weight: 700; color: var(--text-color); cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .accordion-icon { transition: transform 0.3s ease; }
-    .accordion-item.open .accordion-icon { transform: rotate(180deg); color: var(--accent); }
-    .accordion-content { max-height: 0; overflow-y: auto; transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; font-size: calc(0.95rem * var(--zoom-factor)); line-height: 1.6; color: var(--text-color); opacity: 0.9; }
-    .accordion-item.open .accordion-content { max-height: 800px; padding: 0 20px 20px; display: flex; flex-direction: column; gap: 16px; }
-
+    /* MENU PAGES (Substitui o Accordion Bugado) */
+    .menu-page { display: none; flex-direction: column; gap: 16px; }
+    .menu-page.active { display: flex; }
+    .page-back-btn { background: none; border: none; font-size: calc(1rem * var(--zoom-factor)); font-weight: bold; color: var(--accent); cursor: pointer; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    
     .theme-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .theme-btn { padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); cursor: pointer; font-size: calc(0.95rem * var(--zoom-factor)); width: 100%; text-align: center; font-weight: 700; }
+    .theme-btn { padding: 14px; border-radius: 10px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); cursor: pointer; font-size: calc(0.95rem * var(--zoom-factor)); width: 100%; text-align: center; font-weight: 700; transition: 0.2s; }
     .panel-label { font-size: calc(0.9rem * var(--zoom-factor)); font-weight: bold; color: var(--text-color); display: flex; justify-content: space-between; margin-bottom: 8px;}
     .panel-select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); font-size: calc(0.95rem * var(--zoom-factor)); outline: none; margin-bottom: 12px;}
     .preset-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
@@ -126,8 +123,8 @@
     #canvas-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; background-color: var(--bg-color); z-index: 100; flex-direction: column; }
     .canvas-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); border-bottom: 1px solid var(--border-color); font-weight: 800; font-size: calc(1.1rem * var(--zoom-factor));}
     #artCanvas { flex: 1; touch-action: none; cursor: crosshair; }
-    .canvas-tools { padding: 16px; background: var(--card-bg); display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; border-top: 1px solid var(--border-color);}
-    .tool-btn { padding: 12px 20px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color); cursor: pointer; font-weight: 700; font-size: calc(1rem * var(--zoom-factor)); }
+    .canvas-tools { padding: 16px; background: var(--card-bg); display: flex; gap: 12px; justify-content: center; align-items: center; flex-wrap: wrap; border-top: 1px solid var(--border-color); padding-bottom: 30px;}
+    .tool-btn { padding: 12px 20px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color); cursor: pointer; font-weight: 700; font-size: calc(1rem * var(--zoom-factor)); transition: 0.2s;}
     .color-palette { display: flex; gap: 10px; background: var(--bg-color); padding: 8px; border-radius: 12px; border: 1px solid var(--border-color);}
     .color-dot { width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: transform 0.2s; }
     .color-dot.selected { border-color: var(--text-color); transform: scale(1.1); }
@@ -178,7 +175,7 @@
         <div style="background: rgba(0,0,0,0.03); padding: 14px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--border-color);">
           <label style="display:flex; align-items:center; gap:10px; font-weight:bold; font-size:calc(0.95rem * var(--zoom-factor)); cursor:pointer;">
             <input type="checkbox" id="monoToggle" onchange="toggleMono(this)" style="width:20px; height:20px; accent-color:var(--accent);">
-            Forçar Áudio MONO (Baixa audição unilateral)
+            Forçar Áudio MONO (Baixa audição)
           </label>
         </div>
         <button class="theme-btn" onclick="playAcoustic('chuva')">🌧️ Chuva Reparadora (Ruído Rosa)</button>
@@ -193,92 +190,91 @@
   </div>
   <audio id="ambientPlayer" loop crossorigin="anonymous" style="display:none;"></audio>
 
+  <!-- MENU CENTRAL V10.3 EM FORMATO DE PÁGINAS (Adeus Sanfona!) -->
   <div id="settings-modal" class="modal-overlay">
     <div class="modal-card" style="height: 90dvh; max-height: 800px;">
       <div class="modal-header">
-        <span class="modal-title">Menu Central</span>
+        <span class="modal-title" id="settings-title">Menu Central</span>
         <button class="close-btn" onclick="closeModal('settings-modal')">&times;</button>
       </div>
-      <div class="modal-body">
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <span style="flex:1; line-height: 1.3;">💡 Tela, Temas e Zoom</span>
-            <div class="access-btns" style="margin-right: 10px;"><span class="access-btn" style="font-size: 1rem;" onclick="toggleAccordionAudio(event, this)">🔊</span></div>
-            <span class="accordion-icon">▼</span>
+      <div class="modal-body" id="settings-body">
+        
+        <!-- PÁGINA INICIAL DO MENU -->
+        <div id="page-home" class="menu-page active">
+          <button class="cbt-inline-btn" onclick="navMenu('page-tela')">💡 Tela, Temas e Zoom</button>
+          <button class="cbt-inline-btn" onclick="navMenu('page-voz'); populateVoices();">🗣️ Personalização da Voz</button>
+          <button class="cbt-inline-btn" onclick="navMenu('page-privacidade')">🔒 Privacidade e IA</button>
+          <button class="cbt-inline-btn" onclick="navMenu('page-manual')">📖 Manual de Acolhimento</button>
+        </div>
+
+        <!-- PÁGINA: TELA -->
+        <div id="page-tela" class="menu-page">
+          <button class="page-back-btn" onclick="navMenu('page-home')">⬅ Voltar ao Menu</button>
+          <div class="access-btns" style="margin-left: 0; margin-bottom: 10px;"><span class="access-btn" onclick="readGenericText('Ajuste o zoom e as cores sensoriais.', this)">🔊</span></div>
+          
+          <span class="panel-label">Acessibilidade (Zoom)</span>
+          <input type="range" min="0.8" max="1.5" step="0.1" value="1" style="width:100%; height:12px; accent-color:var(--accent);" oninput="setZoom(this.value)">
+          <span class="panel-label" style="margin-top:15px;">Temas Visuais</span>
+          <div class="theme-options">
+            <button class="theme-btn" onclick="setTheme('light')">☀️ Claro</button>
+            <button class="theme-btn" onclick="setTheme('dark')">🌙 Escuro</button>
+            <button class="theme-btn" onclick="setTheme('sepia')">📜 Sépia</button>
+            <button class="theme-btn" style="background:#ffeef2; color:#d63031; border-color:#ffb8c6;" onclick="setTheme('pink')">🌸 Algodão Doce</button>
+            <button class="theme-btn" style="background:#e3f2fd; color:#0984e3; border-color:#74b9ff;" onclick="setTheme('blue')">🌊 Azul Sereno</button>
+            <button class="theme-btn" style="background:#e8f5e9; color:#2e7d32; border-color:#a5d6a7;" onclick="setTheme('green')">🍃 Verde Natureza</button>
           </div>
-          <div class="accordion-content">
-            <span class="panel-label" style="margin-top:5px;">Acessibilidade (Zoom)</span>
-            <input type="range" min="0.8" max="1.5" step="0.1" value="1" style="width:100%; height:12px; accent-color:var(--accent);" oninput="setZoom(this.value)">
-            <span class="panel-label" style="margin-top:15px;">Temas Visuais</span>
-            <div class="theme-options">
-              <button class="theme-btn" onclick="setTheme('light')">☀️ Claro</button>
-              <button class="theme-btn" onclick="setTheme('dark')">🌙 Escuro</button>
-              <button class="theme-btn" onclick="setTheme('sepia')">📜 Sépia</button>
-              <button class="theme-btn" style="background:#ffeef2; color:#d63031; border-color:#ffb8c6;" onclick="setTheme('pink')">🌸 Algodão Doce</button>
-              <button class="theme-btn" style="background:#e3f2fd; color:#0984e3; border-color:#74b9ff;" onclick="setTheme('blue')">🌊 Azul Sereno</button>
-              <button class="theme-btn" style="background:#e8f5e9; color:#2e7d32; border-color:#a5d6a7;" onclick="setTheme('green')">🍃 Verde Natureza</button>
-            </div>
-            <span class="panel-label" style="margin-top:15px;">Reduzir Brilho Ocular</span>
-            <input type="range" min="0" max="0.75" step="0.05" value="0" style="width:100%; height:12px; accent-color:var(--accent);" oninput="setBrightness(this.value)">
+          <span class="panel-label" style="margin-top:15px;">Reduzir Brilho Ocular</span>
+          <input type="range" min="0" max="0.75" step="0.05" value="0" style="width:100%; height:12px; accent-color:var(--accent);" oninput="setBrightness(this.value)">
+        </div>
+
+        <!-- PÁGINA: VOZ -->
+        <div id="page-voz" class="menu-page">
+          <button class="page-back-btn" onclick="navMenu('page-home')">⬅ Voltar ao Menu</button>
+          <div class="access-btns" style="margin-left: 0; margin-bottom: 10px;"><span class="access-btn" onclick="readGenericText('Escolha a voz humana e ajuste a velocidade.', this)">🔊</span></div>
+
+          <div><span class="panel-label">Voz Base do Sistema</span><select id="voiceSelect" class="panel-select" onchange="updateVoiceSettings()"></select></div>
+          <span class="panel-label">Estilos Emocionais</span>
+          <div class="preset-grid">
+            <button class="preset-btn" onclick="applyVoicePreset('acolhedora')">🤗 Acolhedora</button>
+            <button class="preset-btn" onclick="applyVoicePreset('serena')">🧘 Serena</button>
+            <button class="preset-btn" onclick="applyVoicePreset('energique')">⚡ Enérgica</button>
+            <button class="preset-btn" onclick="applyVoicePreset('natural')">🍃 Natural</button>
+          </div>
+          <div style="margin-top: 10px;"><span class="panel-label">Tom <span id="pitchVal" style="color:var(--accent);">1.0</span></span><input type="range" id="voicePitch" min="0.5" max="1.5" step="0.05" value="1.0" style="width:100%; height:12px; accent-color:var(--accent);" oninput="updateVoiceSettings()"></div>
+          <div style="margin-top: 10px;"><span class="panel-label">Velocidade <span id="rateVal" style="color:var(--accent);">0.95</span></span><input type="range" id="voiceRate" min="0.5" max="1.5" step="0.05" value="0.95" style="width:100%; height:12px; accent-color:var(--accent);" oninput="updateVoiceSettings()"></div>
+          <button class="theme-btn" style="background:var(--primary-color); color:var(--bg-color); width:100%; margin-top:16px; padding: 14px;" onclick="testVoiceSettings()">🔊 Ouvir Voz</button>
+        </div>
+
+        <!-- PÁGINA: PRIVACIDADE -->
+        <div id="page-privacidade" class="menu-page">
+          <button class="page-back-btn" onclick="navMenu('page-home')">⬅ Voltar ao Menu</button>
+          <div class="access-btns" style="margin-left: 0; margin-bottom: 10px;"><span class="access-btn" onclick="readGenericText('Sua privacidade intacta. Baixe a rede neural local para atuar sem internet.', this)">🔊</span></div>
+
+          <p><strong>Privacidade Total.</strong> As suas mensagens nunca saem do aparelho.</p>
+          <button id="download-ai-btn" onclick="downloadRealAI()" class="theme-btn" style="background:#0984e3; color:white; border:none; margin-top: 10px;">🧠 Instalar IA Local (Requer Wi-Fi)</button>
+          <button onclick="clearChatMemory()" class="theme-btn" style="background:var(--danger); color:white; border:none; margin-top: 10px;">🧹 Apagar Histórico de Chat</button>
+          <div style="display:flex; gap:12px; margin-top: 5px;">
+            <button onclick="exportBackup()" class="theme-btn" style="flex:1; margin:0; padding:14px;">📤 Salvar</button>
+            <label for="importFile" class="theme-btn" style="flex:1; text-align:center; display:flex; align-items:center; justify-content:center; margin:0; padding:14px;">📥 Carregar</label>
+            <input type="file" id="importFile" onchange="importBackup(event)" style="display:none;">
           </div>
         </div>
 
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this); populateVoices();">
-            <span style="flex:1; line-height: 1.3;">🗣️ Personalização da Voz</span>
-            <div class="access-btns" style="margin-right: 10px;"><span class="access-btn" style="font-size: 1rem;" onclick="toggleAccordionAudio(event, this)">🔊</span></div>
-            <span class="accordion-icon">▼</span>
+        <!-- PÁGINA: MANUAL -->
+        <div id="page-manual" class="menu-page">
+          <button class="page-back-btn" onclick="navMenu('page-home')">⬅ Voltar ao Menu</button>
+          <div class="access-btns" style="margin-left: 0; margin-bottom: 10px;">
+            <span class="access-btn" onclick="readGenericText('Manual do aplicativo. Chat offline, Glosa e Medidor de emoções.', this)">🔊</span>
+            <span class="access-btn" onclick="window.toggleGlosaText('MANUAL APLICATIVO. CHAT OFFLINE. GLOSA MEDIDOR EMOÇÃO.', this.parentElement)">🤟</span>
           </div>
-          <div class="accordion-content">
-            <div><span class="panel-label">Voz Base do Sistema</span><select id="voiceSelect" class="panel-select" onchange="updateVoiceSettings()"></select></div>
-            <span class="panel-label">Estilos Emocionais</span>
-            <div class="preset-grid">
-              <button class="preset-btn" onclick="applyVoicePreset('acolhedora')">🤗 Acolhedora</button>
-              <button class="preset-btn" onclick="applyVoicePreset('serena')">🧘 Serena</button>
-              <button class="preset-btn" onclick="applyVoicePreset('energique')">⚡ Enérgica</button>
-              <button class="preset-btn" onclick="applyVoicePreset('natural')">🍃 Natural</button>
-            </div>
-            <div style="margin-top: 10px;"><span class="panel-label">Tom <span id="pitchVal" style="color:var(--accent);">1.0</span></span><input type="range" id="voicePitch" min="0.5" max="1.5" step="0.05" value="1.0" style="width:100%; height:12px; accent-color:var(--accent);" oninput="updateVoiceSettings()"></div>
-            <div style="margin-top: 10px;"><span class="panel-label">Velocidade <span id="rateVal" style="color:var(--accent);">0.95</span></span><input type="range" id="voiceRate" min="0.5" max="1.5" step="0.05" value="0.95" style="width:100%; height:12px; accent-color:var(--accent);" oninput="updateVoiceSettings()"></div>
-            <button class="theme-btn" style="background:var(--primary-color); color:var(--bg-color); width:100%; margin-top:16px; padding: 14px;" onclick="testVoiceSettings()">🔊 Ouvir Voz</button>
-          </div>
+
+          <p><strong>🧠 Chat Offline:</strong> Se a internet cair, a IA nativa assume a conversa automaticamente.</p>
+          <p><strong>🤟 GLOSA:</strong> Ao tocar na mãozinha (🤟) o sistema traduz o texto gerando a estrutura em GLOSA.</p>
+          <p><strong>📊 Termômetro (SUDS):</strong> O chat injetará barras para você medir seu sofrimento de 0 a 10.</p>
+          <p><strong>🎨 Arte e Arquivos:</strong> No botão "➕", você abre o menu para desenhar na Lousa, gravar vídeos em Libras ou anexar arquivos.</p>
+          <p><strong>🔊 Leitura:</strong> Toque em qualquer texto no chat para a IA ler ou pausar o áudio. O Mini-player avança as frases.</p>
         </div>
 
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <span style="flex:1; line-height: 1.3;">🔒 Privacidade e IA</span>
-            <div class="access-btns" style="margin-right: 10px;"><span class="access-btn" style="font-size: 1rem;" onclick="toggleAccordionAudio(event, this)">🔊</span></div>
-            <span class="accordion-icon">▼</span>
-          </div>
-          <div class="accordion-content">
-            <p><strong>Privacidade Total.</strong> As suas mensagens, áudios e desenhos nunca saem do seu aparelho sem sua permissão.</p>
-            <button id="download-ai-btn" onclick="downloadRealAI()" class="theme-btn" style="background:#0984e3; color:white; border:none; margin-top: 10px;">🧠 Instalar IA Local (Requer Wi-Fi)</button>
-            <button onclick="clearChatMemory()" class="theme-btn" style="background:var(--danger); color:white; border:none; margin-top: 10px;">🧹 Apagar Histórico de Chat</button>
-            <div style="display:flex; gap:12px; margin-top: 5px;">
-              <button onclick="exportBackup()" class="theme-btn" style="flex:1; margin:0; padding:14px;">📤 Salvar</button>
-              <label for="importFile" class="theme-btn" style="flex:1; text-align:center; display:flex; align-items:center; justify-content:center; margin:0; padding:14px;">📥 Carregar</label>
-              <input type="file" id="importFile" onchange="importBackup(event)" style="display:none;">
-            </div>
-          </div>
-        </div>
-
-        <div class="accordion-item">
-          <div class="accordion-header" onclick="toggleAccordion(this)">
-            <span style="flex:1; line-height: 1.3;">📖 Manual de Acolhimento</span>
-            <div class="access-btns" style="margin-right: 10px;">
-              <span class="access-btn" style="font-size: 1rem;" onclick="toggleAccordionAudio(event, this)">🔊</span>
-              <span class="access-btn" style="font-size: 1rem;" onclick="toggleAccordionLibras(event, this)">🤟</span>
-            </div>
-            <span class="accordion-icon">▼</span>
-          </div>
-          <div class="accordion-content">
-            <p><strong>🧠 Chat Offline:</strong> Se a internet cair, a IA nativa assume a conversa automaticamente.</p>
-            <p><strong>🤟 GLOSA:</strong> Ao tocar na mãozinha (🤟) o sistema traduz o texto gerando a estrutura em GLOSA.</p>
-            <p><strong>📊 Termômetro (SUDS):</strong> O chat injetará barras deslizantes para você medir seu sofrimento de 0 a 10 de forma simples.</p>
-            <p><strong>🎨 Arteterapia e Arquivos:</strong> No botão "➕", você abre o menu para desenhar na Lousa, gravar vídeos em Libras ou anexar arquivos.</p>
-            <p><strong>🔊 Controle de Leitura:</strong> Toque em qualquer texto no chat para a IA começar a ler em voz alta. Toque novamente para pausar.</p>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -309,7 +305,7 @@
 
     <div class="controls-wrapper">
       <button class="action-btn" style="background:var(--border-color); color:var(--text-color);" onclick="toggleAttachMenu()" title="Adicionar Mídia">➕</button>
-      <button class="action-btn" style="background:#fdcb6e; color:#2d3436;" onclick="toggleEmojiPicker()" title="Expressar com Emojis">😀</button>
+      <button class="action-btn" style="background:#fdcb6e; color:#2d3436;" onclick="toggleEmojiPicker()" title="Emojis Rápidos">😀</button>
       <textarea id="userInput" placeholder="Escreva como você se sente..." oninput="autoResizeTextarea(this)"></textarea>
       <button class="action-btn voice-btn" id="voiceBtn" onclick="toggleVoice()" title="Digitação por Voz">🎙️</button>
       <button class="action-btn" style="background:var(--accent);" onclick="sendMessage()" title="Enviar">➔</button>
@@ -318,10 +314,7 @@
 
   <div id="camera-modal" class="modal-overlay">
     <div class="modal-card" style="text-align:center;">
-      <div class="modal-header">
-        <span class="modal-title">Gravação Visual</span>
-        <button class="close-btn" onclick="closeCameraModal()">&times;</button>
-      </div>
+      <div class="modal-header"><span class="modal-title">Gravação Visual</span><button class="close-btn" onclick="closeCameraModal()">&times;</button></div>
       <div class="modal-body" style="align-items:center;">
         <video id="webcam-preview" autoplay playsinline style="width:100%; max-height:300px; border-radius:12px; background:#000; object-fit: cover;"></video>
         <p style="font-size:calc(1rem * var(--zoom-factor)); color:var(--text-color); margin-top:12px;">Expresse-se em sinais ou gestos.</p>
@@ -331,18 +324,13 @@
           <option value="10000">Médio: 10 Segundos</option>
           <option value="15000">Longo: 15 Segundos</option>
         </select>
-        <button id="captureLibrasBtn" onclick="captureSignLanguage()" class="theme-btn" style="background:var(--accent); color:white; font-size:calc(1.15rem * var(--zoom-factor)); padding:16px; margin-top: 10px;">
-          🔴 Iniciar Gravação
-        </button>
+        <button id="captureLibrasBtn" onclick="captureSignLanguage()" class="theme-btn" style="background:var(--accent); color:white; font-size:calc(1.15rem * var(--zoom-factor)); padding:16px; margin-top: 10px;">🔴 Iniciar Gravação</button>
       </div>
     </div>
   </div>
 
   <div id="canvas-modal">
-    <div class="canvas-header">
-      <span style="font-size: calc(1.2rem * var(--zoom-factor));">Lousa de Arte</span>
-      <button class="tool-btn" style="background:var(--accent); color:white; border:none;" onclick="closeCanvas()">Concluir e Enviar</button>
-    </div>
+    <div class="canvas-header"><span style="font-size: calc(1.2rem * var(--zoom-factor));">Lousa de Arte</span><button class="tool-btn" style="background:var(--accent); color:white; border:none;" onclick="closeCanvas()">Concluir</button></div>
     <canvas id="artCanvas"></canvas>
     <div class="canvas-tools">
       <div class="color-palette">
@@ -358,14 +346,8 @@
       <button class="tool-btn" style="background:var(--danger); color:white; border:none;" onclick="clearCanvas()">🗑️ Limpar Tela</button>
     </div>
   </div>
-  
-  <div id="panic-screen">
-    <div class="panic-icon">⚠️</div>
-    <div class="panic-h1">A página falhou ao carregar</div>
-    <div class="panic-p">A conexão de internet foi redefinida bruscamente. Tente verificar seus cabos de rede.</div>
-    <div class="panic-code" onclick="triggerEmergencyDial()">ERR_INTERNET_DISCONNECTED</div>
-  </div>
 
+  <div id="panic-screen"><div class="panic-icon">⚠️</div><div class="panic-h1">A página falhou ao carregar</div><div class="panic-code" onclick="triggerEmergencyDial()">ERR_INTERNET_DISCONNECTED</div></div>
   <div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
   <script>
     const Storage = { get: (k) => { try{ return localStorage.getItem(k); }catch(e){ return null; } }, set: (k,v) => { try{ localStorage.setItem(k,v); }catch(e){} }, remove: (k) => { try{ localStorage.removeItem(k); }catch(e){} } };
@@ -382,14 +364,14 @@
     function toggleEmojiPicker() { document.getElementById('emoji-picker-wrapper').classList.toggle('open'); document.getElementById('attach-menu').classList.remove('active'); }
 
     const cbtSuggestions = {
-      "ansiedade_leve": [ { "label": "📊 Medir Grau de Ansiedade e Tensão", "action": "METER_ANSIEDADE" } ],
+      "ansiedade_leve": [ { "label": "📊 Medir Grau de Ansiedade", "action": "METER_ANSIEDADE" } ],
       "crise_fisica": [ { "label": "📊 Medir Dor / Fadiga", "action": "METER_DOR" }, { "label": "🧘 Técnica 5-4-3-2-1", "action": "TECNICA_54321" }, { "label": "🎧 Som Binaural 432Hz", "action": "PLAY_432" } ],
-      "tristeza_profunda": [ { "label": "📊 Medir Nível de Tristeza", "action": "METER_TRISTEZA" } ],
-      "sobrecarga_sensorial": [ { "label": "🔊 Ativar Som de Reset Cognitivo", "action": "PLAY_852" } ]
+      "tristeza_profunda": [ { "label": "📊 Medir Tristeza", "action": "METER_TRISTEZA" } ],
+      "sobrecarga_sensorial": [ { "label": "🔊 Ativar Reset Cognitivo", "action": "PLAY_852" } ]
     };
 
     window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
-    window.triggerPWAInstall = async function() { if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; } else { showToast("💝 O aplicativo já foi instalado neste dispositivo."); } }
+    window.triggerPWAInstall = async function() { if (deferredPrompt) { deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; } else { showToast("💝 O aplicativo já foi instalado."); } }
 
     window.addEventListener('load', () => {
       const canvas = document.getElementById('logoCanvas');
@@ -419,9 +401,9 @@
 
     function updateNetworkStatus() { const b = document.getElementById('network-badge'); if (navigator.onLine) { b.textContent = 'Online'; b.className = 'network-badge badge-online'; } else if (window.offlineAIEngine && window.offlineAIEngine.isLoaded) { b.textContent = 'IA Local'; b.className = 'network-badge badge-ai-local'; } else { b.textContent = 'Offline'; b.className = 'network-badge badge-offline'; } }
 
-    function openModal(id) { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active')); document.getElementById(id).classList.add('active'); if(id === 'settings-modal') populateVoices(); }
+    function openModal(id) { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active')); document.getElementById(id).classList.add('active'); if(id === 'settings-modal') { navMenu('page-home'); populateVoices(); } }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    function toggleAccordion(button) { const item = button.parentElement; const isOpen = item.classList.contains('open'); document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open')); if (!isOpen) { item.classList.add('open'); setTimeout(() => { const mb = item.closest('.modal-body'); if(mb) mb.scrollTo({ top: item.offsetTop - 20, behavior: 'smooth' }); }, 300); } }
+    function navMenu(pageId) { document.querySelectorAll('.menu-page').forEach(p => p.classList.remove('active')); document.getElementById(pageId).classList.add('active'); }
     function showToast(msg) { const t = document.getElementById('toast-notification'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 4500); }
     function triggerPanicLock() { document.getElementById('panic-screen').style.display = 'flex'; }
     function triggerEmergencyDial() { window.location.href = 'tel:190'; }
@@ -463,15 +445,17 @@
       submitBtn.onclick = () => {
         let textResult = "[Escala SUDS]\n"; slidersData.forEach(item => { textResult += `Meu nível de ${item.name} é: ${item.input.value} de 10.\n`; });
         submitBtn.innerText = "✓ Medição Salva"; submitBtn.disabled = true; submitBtn.style.background = "var(--border-color)"; submitBtn.style.color = "var(--primary-color)"; slidersData.forEach(item => item.input.disabled = true);
-        appendMessage(textResult.trim(), 'user'); processUserMessageWithCascade(textResult.trim()).then(res => { let clean = res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(); appendMessage(clean, 'assistant', true, res.suggestedCBT); });
+        appendMessage(textResult.trim(), 'user'); 
+        processUserMessageWithCascade(textResult.trim(), null, null).then(res => { let clean = res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(); appendMessage(clean, 'assistant', true, res.suggestedCBT); });
       };
       card.appendChild(submitBtn); btnElement.parentElement.appendChild(card); btnElement.remove();
     }
 
     window.executeCBTSuggestion = function(actionCode, btnElement) {
-      if (actionCode === 'METER_ANSIEDADE') { window.renderEmotionMeters(btnElement, [ { label: 'Ansiedade / Pânico' }, { label: 'Preocupação Invasiva' } ]); return; }
-      else if (actionCode === 'METER_DOR') { window.renderEmotionMeters(btnElement, [ { label: 'Dor Física Geral' }, { label: 'Sensação de Fadiga' } ]); return; }
-      else if (actionCode === 'METER_TRISTEZA') { window.renderEmotionMeters(btnElement, [ { label: 'Grau de Tristeza' }, { label: 'Vazio / Apatia' } ]); return; }
+      if (actionCode === 'METER_FULL') { window.renderEmotionMeters(btnElement, [ {label: 'Ansiedade'}, {label: 'Tristeza'}, {label: 'Fadiga'}, {label: 'Tédio'}, {label: 'Preocupação'}, {label: 'Empolgação'} ]); return; }
+      else if (actionCode === 'METER_ANSIEDADE') { window.renderEmotionMeters(btnElement, [ { label: 'Ansiedade / Pânico' }, { label: 'Preocupação Invasiva' } ]); return; }
+      else if (actionCode === 'METER_DOR') { window.renderEmotionMeters(btnElement, [ { label: 'Dor Física' }, { label: 'Fadiga' } ]); return; }
+      else if (actionCode === 'METER_TRISTEZA') { window.renderEmotionMeters(btnElement, [ { label: 'Grau de Tristeza' }, { label: 'Apatia' } ]); return; }
       if (actionCode === 'PLAY_432') playAcoustic('binaural'); else if (actionCode === 'PLAY_852') playAcoustic('reset'); else if (actionCode === 'OPEN_ART') openCanvas(); else if (actionCode === 'TECNICA_54321') { appendMessage("Técnica de Aterramento:\nOlhe ao redor devagar. Encontre:\n👀 5 coisas que pode ver.\n✋ 4 coisas que pode tocar.\n👂 3 sons.\n👃 2 cheiros.\n❤️ 1 coisa boa.", 'assistant', false); }
       btnElement.innerText = "✓ " + btnElement.innerText; btnElement.style.background = "var(--border-color)"; btnElement.disabled = true;
     }
@@ -488,19 +472,48 @@
       } catch (error) { btn.innerText = "Erro ao baixar"; btn.disabled = false; }
     };
 
+    /* CAPTURA E ENVIO MULTIMODAL VERDADEIRO (API CLOUD VISION E FALLBACK OFFLINE) */
+    
     let cameraStream = null; let mediaRecorder = null; let recordedChunks = [];
     async function openCameraModal() { openModal('camera-modal'); const video = document.getElementById('webcam-preview'); try { cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false }); video.srcObject = cameraStream; } catch (err) { alert("Erro de acesso à câmera."); closeModal('camera-modal'); } }
     function closeCameraModal() { closeModal('camera-modal'); if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop(); if (cameraStream) { cameraStream.getTracks().forEach(track => track.stop()); cameraStream = null; } }
+    
     function captureSignLanguage() {
-      if (!cameraStream) return; const durationSelect = document.getElementById('videoDuration'); const recordTimeMs = parseInt(durationSelect ? durationSelect.value : 5000) || 5000; const recordTimeSec = (recordTimeMs / 1000).toFixed(1);
-      recordedChunks = []; const btn = document.getElementById('captureLibrasBtn'); btn.innerText = `Gravando... Olhe para a câmera.`; btn.disabled = true; if (durationSelect) durationSelect.disabled = true;
+      if (!cameraStream) return; 
+      const durationSelect = document.getElementById('videoDuration'); 
+      const recordTimeMs = parseInt(durationSelect ? durationSelect.value : 5000) || 5000; 
+      const recordTimeSec = (recordTimeMs / 1000).toFixed(1);
+      recordedChunks = []; 
+      const btn = document.getElementById('captureLibrasBtn'); 
+      btn.innerText = `Gravando... Olhe para a câmera.`; btn.disabled = true; 
+      if (durationSelect) durationSelect.disabled = true;
+      
       try { mediaRecorder = new MediaRecorder(cameraStream, { mimeType: 'video/webm' }); } catch (e) { mediaRecorder = new MediaRecorder(cameraStream); }
       mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
+      
       mediaRecorder.onstop = () => {
-        closeCameraModal(); btn.innerText = "🔴 Iniciar Gravação"; btn.disabled = false; if (durationSelect) durationSelect.disabled = false; 
-        appendMessage(`[Mídia Recebida: Vídeo Frontal - ${recordTimeSec}s]`, 'user');
-        const hiddenContext = `[SISTEMA MULTIMODAL]: O paciente enviou um vídeo expressivo (sinais, gestos, choro). Responda IMEDIATAMENTE dizendo que "viu", compreende a profundidade do sentimento dele, acolha a emoção e faça uma pergunta empática.`;
-        processUserMessageWithCascade(hiddenContext).then(res => { let c = res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(); appendMessage(c, 'assistant', true, res.suggestedCBT); });
+        closeCameraModal(); 
+        btn.innerText = "🔴 Iniciar Gravação"; btn.disabled = false; 
+        if (durationSelect) durationSelect.disabled = false; 
+        
+        appendMessage(`[Vídeo de Câmera Frontal Capturado - ${recordTimeSec}s]`, 'user');
+        
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          const base64Data = reader.result;
+          
+          // O Contexto diz: "Analise o vídeo anexo". Se tiver offline, ele usa o prompt de "sou cego".
+          const hiddenContext = navigator.onLine 
+            ? `[SISTEMA MULTIMODAL]: O paciente anexou um vídeo dele usando a câmera. Analise as expressões faciais ou sinais de Libras nesse vídeo e responda acolhendo o que você enxergar.` 
+            : `[SISTEMA OFFLINE]: O paciente enviou um vídeo expressivo (sinais, gestos, choro). Como estamos operando no motor offline e você está "cego" para o vídeo agora, agradeça o envio, valide o esforço dele, e peça educadamente para ele descrever com palavras curtas o que ele fez no vídeo.`;
+          
+          processUserMessageWithCascade(hiddenContext, base64Data, "video/webm").then(res => { 
+            let c = res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(); 
+            appendMessage(c, 'assistant', true, res.suggestedCBT); 
+          });
+        }
       };
       mediaRecorder.start(); setTimeout(() => { if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop(); }, recordTimeMs);
     }
@@ -508,14 +521,47 @@
     let artCanvas, artCtx, drawing = false, currentTool = 'pen', strokeColor = '#333333'; let currentToolBtn = null;
     function initCanvas() { artCanvas = document.getElementById('artCanvas'); if(!artCanvas) return; artCtx = artCanvas.getContext('2d'); artCanvas.addEventListener('mousedown', startDraw); artCanvas.addEventListener('mousemove', draw); artCanvas.addEventListener('mouseup', stopDraw); artCanvas.addEventListener('touchstart', startDraw, {passive:false}); artCanvas.addEventListener('touchmove', draw, {passive:false}); artCanvas.addEventListener('touchend', stopDraw); }
     function openCanvas() { document.getElementById('canvas-modal').style.display = 'flex'; artCanvas.width = window.innerWidth; artCanvas.height = window.innerHeight - 150; artCtx.fillStyle = getComputedStyle(document.body).getPropertyValue('--bg-color').trim(); artCtx.fillRect(0, 0, artCanvas.width, artCanvas.height); }
-    function closeCanvas() { document.getElementById('canvas-modal').style.display = 'none'; appendMessage("[Mídia Recebida: Lousa de Expressão Visual]", 'user'); const hiddenContext = `[SISTEMA MULTIMODAL]: O paciente fechou a lousa desenhando sentimentos abstratos. Assuma o papel empático que "sente" a arte. Acolha e pergunte o que isso representou.`; processUserMessageWithCascade(hiddenContext).then(res => appendMessage(res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(), 'assistant', true, res.suggestedCBT)); }
+    
+    function closeCanvas() { 
+      if (confirm("Deseja compartilhar esta arte no chat para a Inteligência Artificial ver?")) {
+        const imgData = artCanvas.toDataURL("image/png");
+        
+        const imgElem = document.createElement('img');
+        imgElem.src = imgData;
+        imgElem.className = 'chat-thumbnail';
+        appendMessage("[Lousa de Expressão Visual Concluída]", 'user', true, null, null, imgElem); 
+        
+        const hiddenContext = navigator.onLine 
+            ? `[SISTEMA MULTIMODAL]: O paciente desenhou na lousa e enviou a arte. Analise a imagem anexa e fale sobre as cores e formas com empatia e acolhimento.` 
+            : `[SISTEMA OFFLINE]: O paciente enviou um desenho. Como você está no motor local de segurança e não pode analisar pixels, aja com empatia. Agradeça o envio, valide a arte, e peça para ele descrever o que desenhou.`;
+        
+        processUserMessageWithCascade(hiddenContext, imgData, "image/png").then(res => appendMessage(res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(), 'assistant', true, res.suggestedCBT)); 
+      }
+      document.getElementById('canvas-modal').style.display = 'none'; 
+    }
+    
     function setTool(btn, tool) { currentTool = tool; if(currentToolBtn) currentToolBtn.style.background = 'var(--bg-color)'; currentToolBtn = btn; btn.style.background = 'rgba(0,0,0,0.1)';} 
     function setColor(dot, color) { document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected')); dot.classList.add('selected'); strokeColor = color; currentTool = 'pen'; } 
     function clearCanvas() { artCtx.fillStyle = getComputedStyle(document.body).getPropertyValue('--bg-color').trim(); artCtx.fillRect(0, 0, artCanvas.width, artCanvas.height); }
     function startDraw(e) { e.preventDefault(); drawing = true; draw(e); } function stopDraw() { drawing = false; artCtx.beginPath(); }
     function draw(e) { if (!drawing) return; e.preventDefault(); const rect = artCanvas.getBoundingClientRect(); const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left; const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top; artCtx.lineWidth = currentTool === 'eraser' ? 35 : 4; artCtx.lineCap = 'round'; artCtx.lineJoin = 'round'; artCtx.strokeStyle = currentTool === 'eraser' ? getComputedStyle(document.body).getPropertyValue('--bg-color').trim() : strokeColor; artCtx.lineTo(x, y); artCtx.stroke(); artCtx.beginPath(); artCtx.moveTo(x, y); }
 
-    function handleFileUpload(event) { const file = event.target.files[0]; if (!file) return; document.getElementById('attach-menu').classList.remove('active'); appendMessage(`[Anexo: ${file.name}]`, 'user'); const hiddenContext = `[SISTEMA MULTIMODAL]: O paciente anexou "${file.name}". Confirme o recebimento, diga que está criptografado e pergunte o que significa.`; processUserMessageWithCascade(hiddenContext).then(res => appendMessage(res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(), 'assistant', true, res.suggestedCBT)); }
+    function handleFileUpload(event) { 
+      const file = event.target.files[0]; if (!file) return; 
+      document.getElementById('attach-menu').classList.remove('active'); 
+      appendMessage(`[Arquivo Anexado: ${file.name}]`, 'user'); 
+      
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const fileData = reader.result;
+        const hiddenContext = navigator.onLine 
+            ? `[SISTEMA MULTIMODAL]: O paciente anexou o arquivo "${file.name}". Analise o conteúdo deste arquivo anexo e responda adequadamente.` 
+            : `[SISTEMA OFFLINE]: O paciente anexou "${file.name}". Confirme o recebimento e PEÇA PARA ELE DESCREVER com palavras o que é esse arquivo para você entender.`; 
+        
+        processUserMessageWithCascade(hiddenContext, fileData, file.type).then(res => appendMessage(res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(), 'assistant', true, res.suggestedCBT)); 
+      }
+      reader.readAsDataURL(file);
+    }
 
     let isListening = false, recognition;
     if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) { const Speech = window.SpeechRecognition || window.webkitSpeechRecognition; recognition = new Speech(); recognition.lang = 'pt-BR'; recognition.continuous = false; recognition.interimResults = false; recognition.onresult = (e) => { const input = document.getElementById('userInput'); input.value += e.results[0][0].transcript + " "; autoResizeTextarea(input); toggleVoice(); }; recognition.onerror = () => toggleVoice(); recognition.onend = () => { if(isListening) toggleVoice(); }; }
@@ -537,14 +583,14 @@
     function populateVoices() { if (!('speechSynthesis' in window)) return; const select = document.getElementById('voiceSelect'); if (!select) return; const voices = window.speechSynthesis.getVoices(); select.innerHTML = ''; const ptVoices = voices.filter(v => v.lang.includes('pt')); if (ptVoices.length > 0) { const groupPt = document.createElement('optgroup'); groupPt.label = "Vozes Nativas"; ptVoices.forEach(v => { const opt = document.createElement('option'); opt.value = voices.indexOf(v); opt.textContent = v.name; groupPt.appendChild(opt); }); select.appendChild(groupPt); } if (state.voiceSettings && voices[state.voiceSettings.voiceIndex]) select.value = state.voiceSettings.voiceIndex; }
     function applyVoicePreset(presetName) { const p = document.getElementById('voicePitch'), r = document.getElementById('voiceRate'); if (presetName === 'acolhedora') { p.value = 0.95; r.value = 0.85; } else if (presetName === 'serena') { p.value = 0.85; r.value = 0.75; } else if (presetName === 'energique') { p.value = 1.15; r.value = 1.05; } else { p.value = 1.0; r.value = 0.95; } updateVoiceSettings(); }
     function updateVoiceSettings() { state.voiceSettings = { voiceIndex: parseInt(document.getElementById('voiceSelect').value) || 0, pitch: parseFloat(document.getElementById('voicePitch').value) || 1.0, rate: parseFloat(document.getElementById('voiceRate').value) || 0.95, volume: 1.0, autoAdvance: true }; document.getElementById('pitchVal').innerText = state.voiceSettings.pitch; document.getElementById('rateVal').innerText = state.voiceSettings.rate; Storage.set('aquele_abraco_state', JSON.stringify(state)); }
-    function testVoiceSettings() { updateVoiceSettings(); window.speechSynthesis.cancel(); resetAudioState(); const utt = new SpeechSynthesisUtterance("Este é um teste da voz humanizada do Aquele Abraço."); utt.lang = 'pt-BR'; const voices = window.speechSynthesis.getVoices(); if (voices[state.voiceSettings.voiceIndex]) utt.voice = voices[state.voiceSettings.voiceIndex]; utt.pitch = state.voiceSettings.pitch; utt.rate = state.voiceSettings.rate; window.speechSynthesis.speak(utt); }
+    function testVoiceSettings() { updateVoiceSettings(); window.speechSynthesis.cancel(); resetAudioState(); const utt = new SpeechSynthesisUtterance("Este é um teste da voz."); utt.lang = 'pt-BR'; const voices = window.speechSynthesis.getVoices(); if (voices[state.voiceSettings.voiceIndex]) utt.voice = voices[state.voiceSettings.voiceIndex]; utt.pitch = state.voiceSettings.pitch; utt.rate = state.voiceSettings.rate; window.speechSynthesis.speak(utt); }
 
     window.readGenericText = function(text, btnElem) { if (!('speechSynthesis' in window)) return alert("Síntese indisponível."); if (window.speechSynthesis.speaking && btnElem.innerText === '⏹️') { window.speechSynthesis.cancel(); resetAudioState(); return; } window.speechSynthesis.cancel(); resetAudioState(); const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'pt-BR'; const voices = window.speechSynthesis.getVoices(); if (state.voiceSettings && voices[state.voiceSettings.voiceIndex]) { utterance.voice = voices[state.voiceSettings.voiceIndex]; utterance.pitch = state.voiceSettings.pitch; utterance.rate = state.voiceSettings.rate; } else utterance.rate = 0.95; utterance.onend = () => resetAudioState(); utterance.onerror = () => resetAudioState(); btnElem.innerText = '⏹️'; window.speechSynthesis.speak(utterance); }
     window.toggleAccordionAudio = function(event, btnElem) { event.stopPropagation(); const item = btnElem.closest('.accordion-item'); if (!item.classList.contains('open')) { document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open')); item.classList.add('open'); } readGenericText(item.querySelector('.accordion-content').innerText, btnElem); }
     window.toggleAccordionLibras = function(event, btnElem) { event.stopPropagation(); const item = btnElem.closest('.accordion-item'); if (!item.classList.contains('open')) { document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open')); item.classList.add('open'); } window.toggleGlosaText(item.querySelector('.accordion-content').innerText, item.querySelector('.accordion-content')); }
 
     window.playParagraph = function(pElem) {
-      if (!('speechSynthesis' in window)) return alert("Fala sintética não suportada.");
+      if (!('speechSynthesis' in window)) return alert("Fala não suportada.");
       window.speechSynthesis.cancel(); resetAudioState(); if (!pElem) return;
       const utterance = new SpeechSynthesisUtterance(pElem.querySelector('.paragraph-text').innerText); utterance.lang = 'pt-BR';
       const voices = window.speechSynthesis.getVoices(); 
@@ -553,14 +599,15 @@
       utterance.onerror = () => resetAudioState();
       pElem.classList.add('speaking'); currentSpeakingPElem = pElem; isSpeechPaused = false;
       const defaultBtns = pElem.querySelector('.access-btns'); if (defaultBtns) defaultBtns.style.display = 'none';
-      const playerDiv = document.createElement('div'); playerDiv.className = 'player-controls'; playerDiv.innerHTML = `<button class="access-btn" title="Repetir Parágrafo Anterior" onclick="skipAudio(-1, event)">⏮️</button><button class="access-btn" title="Pausar / Retomar Leitura" id="pauseBtn" onclick="togglePause(event)">⏸️</button><button class="access-btn" title="Pular Parágrafo" onclick="skipAudio(1, event)">⏭️</button><button class="access-btn" title="Parar Emissão" onclick="stopAllAudio(event)">⏹️</button>`;
+      const playerDiv = document.createElement('div'); playerDiv.className = 'player-controls'; playerDiv.innerHTML = `<button class="access-btn" title="Repetir" onclick="skipAudio(-1, event)">⏮️</button><button class="access-btn" id="pauseBtn" onclick="togglePause(event)">⏸️</button><button class="access-btn" title="Avançar" onclick="skipAudio(1, event)">⏭️</button><button class="access-btn" title="Parar" onclick="stopAllAudio(event)">⏹️</button>`;
       pElem.appendChild(playerDiv); window.speechSynthesis.speak(utterance);
     }
     window.skipAudio = function(direction, event) { if(event) event.stopPropagation(); if(!currentSpeakingPElem) return; let targetElem = direction === 1 ? currentSpeakingPElem.nextElementSibling : currentSpeakingPElem.previousElementSibling; if (targetElem && targetElem.classList.contains('paragraph-item')) { playParagraph(targetElem); } else if (direction === -1) { playParagraph(currentSpeakingPElem); } else { stopAllAudio(); } }
     window.togglePause = function(event) { if(event) event.stopPropagation(); if (!currentSpeakingPElem) return; const pauseBtn = currentSpeakingPElem.querySelector('#pauseBtn'); if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) { window.speechSynthesis.pause(); isSpeechPaused = true; if(pauseBtn) pauseBtn.innerText = '▶️'; } else if (window.speechSynthesis.paused) { window.speechSynthesis.resume(); isSpeechPaused = false; if(pauseBtn) pauseBtn.innerText = '⏸️'; } }
     window.stopAllAudio = function(event) { if(event) event.stopPropagation(); window.speechSynthesis.cancel(); resetAudioState(); }
 
-    async function processUserMessageWithCascade(userText) {
+    // ROTEAMENTO ATUALIZADO (AGORA PASSA MÍDIAS BASE64 PARA O BACKEND)
+    async function processUserMessageWithCascade(userText, mediaPayload = null, mimeType = null) {
       const txt = userText.toUpperCase(); let suggestedCBT = null;
       if (/\b(CORAÇÃO|FALTA DE AR|DOR|SUOR|TREMOR|FADIGA|CANSAÇO|CANSADA)\b/.test(txt)) suggestedCBT = 'crise_fisica';
       else if (/\b(ANSIEDADE|ANSIOSA|PREOCUPADA|MEDO|AGITADA|EMPOLGADA)\b/.test(txt) || currentEmotionalState === "ALERTA_PÂNICO") suggestedCBT = 'ansiedade_leve';
@@ -569,17 +616,25 @@
 
       const currentTime = new Date().toLocaleString('pt-BR');
       let historyContext = state.session_history.slice(-8).map(msg => `[${msg.sender === 'user' ? 'Paciente' : 'AA'}]: ${msg.text}`).join('\n');
-      const systemPrompt = `Você é o 'Aquele Abraço', assistente de saúde mental. Data: ${currentTime}. Histórico:\n${historyContext}\n\nInstrução vital: O paciente enviará Emojis ou ações entre colchetes [Contexto Clínico...]. NÃO ignore os ícones nem revele a marcação de sistema. Atue com base neles e valide incondicionalmente a emoção.`;
+      const systemPrompt = `Você é o 'Aquele Abraço', assistente de saúde mental. Data: ${currentTime}. Histórico:\n${historyContext}\n\nInstrução vital: O paciente enviará Emojis ou ações entre colchetes. Atue com base neles e valide incondicionalmente a emoção.`;
 
+      // NUVEM (GEMINI/GROQ): Manda o payload real (texto + base64) para a API ver!
       if (navigator.onLine) {
         try {
           const controller = new AbortController(); setTimeout(() => controller.abort(), 12000); 
           const payload = { message: userText, history: state.session_history };
+          
+          if (mediaPayload) { 
+            payload.media = mediaPayload; 
+            payload.mimeType = mimeType || "application/octet-stream"; 
+          }
+          
           const response = await fetch(API_BACKEND_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: controller.signal });
           if (response.ok) { const data = await response.json(); return { text: data.response || "Estou aqui com você.", source: 'NUVEM', suggestedCBT }; }
         } catch (error) {}
       }
 
+      // OFFLINE LOCAL (TINYLLAMA): Só de texto, usa o contexto enganoso
       if (window.offlineAIEngine && window.offlineAIEngine.isLoaded && window.offlineAIEngine.engine) {
         try {
           const result = await window.offlineAIEngine.engine.chat.completions.create({ messages: [{ role: "system", content: systemPrompt }, { role: "user", content: `[${currentTime}] Relato: ${userText}` }] });
@@ -595,7 +650,7 @@
       const input = document.getElementById('userInput'); const text = input.value.trim(); 
       if (!text) return; 
       appendMessage(text, 'user'); input.value = ''; input.style.height = '52px'; document.getElementById('emoji-picker-wrapper').classList.remove('open'); document.getElementById('attach-menu').classList.remove('active');
-      const typingId = "typing-" + Date.now(); appendMessage("Analisando as intenções no servidor...", 'assistant', false, null, typingId);
+      const typingId = "typing-" + Date.now(); appendMessage("Analisando...", 'assistant', false, null, typingId);
       
       const result = await processUserMessageWithCascade(text);
       const typingElem = document.getElementById(typingId); if (typingElem) typingElem.remove();
@@ -609,9 +664,11 @@
       appendMessage(cleanText || "Sinta-se abraçado no meu silêncio.", 'assistant', true, result.suggestedCBT);
     }
 
-    function appendMessage(text, sender, save = true, suggestedCBT = null, forceId = null) {
-      const container = document.getElementById('chat-container'); const msgDiv = document.createElement('div'); msgDiv.className = `message ${sender}`; 
+    function appendMessage(text, sender, save = true, suggestedCBT = null, forceId = null, mediaElement = null) {
+      const container = document.getElementById('chat-container'); 
+      const msgDiv = document.createElement('div'); msgDiv.className = `message ${sender}`; 
       if (forceId) msgDiv.id = forceId;
+
       if (!text || typeof text !== 'string') text = "...";
 
       if (sender === 'assistant') {
@@ -633,35 +690,17 @@
           cbtSuggestions[suggestedCBT].forEach(sug => { const btn = document.createElement('button'); btn.className = 'cbt-inline-btn'; btn.innerHTML = sug.label; btn.onclick = () => window.executeCBTSuggestion(sug.action, btn); suggestionsBox.appendChild(btn); });
           msgDiv.appendChild(suggestionsBox);
         }
-      } else { msgDiv.innerText = text; }
+      } else { 
+        msgDiv.innerText = text; 
+      }
+
+      if (mediaElement) msgDiv.appendChild(mediaElement);
       
       container.appendChild(msgDiv); container.scrollTop = container.scrollHeight;
       if (save) { state.session_history.push({ text, sender, time: new Date().toLocaleString('pt-BR') }); Storage.set('aquele_abraco_state', JSON.stringify(state)); }
     }
 
     function loadState() { const saved = Storage.get('aquele_abraco_state'); if (saved) { const parsed = JSON.parse(saved); if(parsed && Array.isArray(parsed.session_history)) { state = { ...state, ...parsed }; if(state.theme) setTheme(state.theme); if(state.zoom) setZoom(state.zoom); renderHistory(); return; } } renderHistory(); }
-    function renderHistory() { const container = document.getElementById('chat-container'); container.innerHTML = ''; appendMessage("Acesso verificado. Este servidor criptografado é um campo livre. O que a sua alma gostaria de dizer ou criar hoje?", 'assistant', false); state.session_history.forEach(msg => appendMessage(msg.text, msg.sender, false)); }
+    function renderHistory() { const container = document.getElementById('chat-container'); container.innerHTML = ''; appendMessage("Acesso verificado. O que a sua alma gostaria de dizer ou criar hoje?", 'assistant', false); state.session_history.forEach(msg => appendMessage(msg.text, msg.sender, false)); }
     function sendEmoji(emoji) { toggleEmojiPicker(); appendMessage(emoji, 'user'); processUserMessageWithCascade(emoji).then(res => { let cleanText = res.text.replace(/<think>[\s\S]*?<\/think>/gi, '').trim(); appendMessage(cleanText, 'assistant', true, res.suggestedCBT); }); }
   </script>
-
-  <!-- ATIVADOR DO SERVICE WORKER (Para matar o Zumbi) -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').then((reg) => {
-          reg.addEventListener('updatefound', () => {
-            const newWorker = reg.installing;
-            newWorker.addEventListener('statechange', () => {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                if (confirm("Versão Monolítica Estável 10.3 carregada! As barras de rolagem estão forçadas na tela. Atualizar?")) {
-                  newWorker.postMessage({ action: 'skipWaiting' }); window.location.reload();
-                }
-              }
-            });
-          });
-        }).catch(err => console.log('SW Registration Fail:', err));
-      });
-    }
-  </script>
-</body>
-</html>
